@@ -341,21 +341,7 @@ export const DATA_VERSION = 2;
  * @property {boolean} upcoming - True if unreleased
  */
 
-import { RUNTIMES } from './runtimes.js';
-
-const _MOVIES = ${JSON.stringify(rawItems, null, 2)};
-
-export const MOVIES = _MOVIES.map(m => {
-  const rt = RUNTIMES[m.id];
-  if (rt) {
-    if (rt.runtimeMin !== undefined && rt.runtimeMin !== null) m.runtimeMin = rt.runtimeMin;
-    if (rt.episodes !== undefined && rt.episodes !== null) m.episodes = rt.episodes;
-    if (rt.totalMin !== undefined && rt.totalMin !== null) m.totalRuntimeMin = rt.totalMin;
-    if (rt.seasons) m.seasonsData = rt.seasons;
-    m.runtimeSource = rt.source || 'tmdb';
-  }
-  return m;
-});
+export const MOVIES = ${JSON.stringify(rawItems, null, 2)};
 
 export default MOVIES;
 `;
