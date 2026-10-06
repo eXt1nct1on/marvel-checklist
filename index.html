@@ -16,8 +16,47 @@
   <!-- Favicon (Inline SVG) -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>dYZ</text></svg>">
 
+  <!-- Preload Bebas Neue -->
+  <link rel="preload" href="./fonts/BebasNeue-Regular.ttf" as="font" type="font/ttf" crossorigin>
+
+  <!-- Preload ES Modules -->
+  <link rel="modulepreload" href="./js/app.js">
+  <link rel="modulepreload" href="./js/store.js">
+  <link rel="modulepreload" href="./js/data.js">
+  <link rel="modulepreload" href="./js/posters.js">
+  <link rel="modulepreload" href="./js/plan.js">
+  <link rel="modulepreload" href="./js/ui/header.js">
+  <link rel="modulepreload" href="./js/ui/home-page.js">
+  <link rel="modulepreload" href="./js/ui/progress-page.js">
+  <link rel="modulepreload" href="./js/ui/plan-page.js">
+  <link rel="modulepreload" href="./js/ui/profiles-page.js">
+  <link rel="modulepreload" href="./js/ui/about-page.js">
+  <link rel="modulepreload" href="./js/ui/card.js">
+  <link rel="modulepreload" href="./js/ui/modal.js">
+  <link rel="modulepreload" href="./js/ui/slider.js">
+  <link rel="modulepreload" href="./js/ui/filters.js">
+
   <!-- Self-contained stylesheet (relative path for sub-folder GitHub Pages hosting) -->
   <link rel="stylesheet" href="./css/style.css">
+
+  <script>
+    // Tiny inline theme script to prevent flash
+    (function() {
+      try {
+        var profilesStr = localStorage.getItem('mcu-tracker:v1');
+        var theme = 'dark';
+        if (profilesStr) {
+          var profiles = JSON.parse(profilesStr);
+          if (profiles.activeProfileId && profiles.profiles && profiles.profiles[profiles.activeProfileId] && profiles.profiles[profiles.activeProfileId].prefs) {
+            theme = profiles.profiles[profiles.activeProfileId].prefs.theme || 'dark';
+          }
+        } else {
+          theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
   <!-- Screen reader live region for instant accessible announcements -->

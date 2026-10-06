@@ -189,12 +189,12 @@ export function renderFiltersHtml(currentFilters = {}, totalCount = 0, matchCoun
       <!-- Breadth Selector & Search Row -->
       <div class="filter-row filter-row-primary">
         <!-- Catalog Breadth Segmented Control -->
-        <div class="breadth-control-group" role="group" aria-label="Catalog Breadth Tier">
-          <span class="control-label-mini">Catalog:</span>
-          <div class="breadth-toggle-buttons">
+        <div class="breadth-control-group" role="group" aria-label="Catalog Breadth Tier" style="display: flex; align-items: center; gap: 8px;">
+          <span class="chip-group-label">Catalog:</span>
+          <div class="segmented-control">
             <button
               type="button"
-              class="btn-breadth-toggle ${activeCatalogScope === 'core' ? 'is-active' : ''}"
+              class="segmented-btn btn-breadth-toggle ${activeCatalogScope === 'core' ? 'is-active' : ''}"
               data-scope="core"
               aria-pressed="${activeCatalogScope === 'core'}"
               title="Core essential universe titles (105 titles)"
@@ -203,7 +203,7 @@ export function renderFiltersHtml(currentFilters = {}, totalCount = 0, matchCoun
             </button>
             <button
               type="button"
-              class="btn-breadth-toggle ${activeCatalogScope === 'extended' ? 'is-active' : ''}"
+              class="segmented-btn btn-breadth-toggle ${activeCatalogScope === 'extended' ? 'is-active' : ''}"
               data-scope="extended"
               aria-pressed="${activeCatalogScope === 'extended'}"
               title="Core + Extended sagas (Defenders, Sony Spider-Man, classics - 168 titles)"
@@ -212,7 +212,7 @@ export function renderFiltersHtml(currentFilters = {}, totalCount = 0, matchCoun
             </button>
             <button
               type="button"
-              class="btn-breadth-toggle ${activeCatalogScope === 'everything' ? 'is-active' : ''}"
+              class="segmented-btn btn-breadth-toggle ${activeCatalogScope === 'everything' ? 'is-active' : ''}"
               data-scope="everything"
               aria-pressed="${activeCatalogScope === 'everything'}"
               title="Everything including specials, shorts, animated, Arrowverse (199 titles)"
@@ -224,9 +224,6 @@ export function renderFiltersHtml(currentFilters = {}, totalCount = 0, matchCoun
 
         <!-- Search Input -->
         <div class="filter-search-box">
-          <svg class="search-icon" viewBox="0 0 20 20" fill="currentColor" width="16" height="16" aria-hidden="true">
-            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/>
-          </svg>
           <input
             type="search"
             class="filter-search-input"
@@ -243,8 +240,8 @@ export function renderFiltersHtml(currentFilters = {}, totalCount = 0, matchCoun
         </div>
 
         <!-- Sort Select -->
-        <div class="filter-sort-group">
-          <label for="filter-sort-select" class="filter-sort-label">Sort:</label>
+        <div class="filter-sort-group" style="display: flex; align-items: center; gap: 8px;">
+          <label for="filter-sort-select" class="chip-group-label">Sort:</label>
           <select id="filter-sort-select" class="filter-select" aria-label="Sort Order">
             <option value="release" ${sort === 'release' ? 'selected' : ''}>Release Order</option>
             <option value="chrono" ${sort === 'chrono' ? 'selected' : ''}>Chronological Order</option>
@@ -254,34 +251,24 @@ export function renderFiltersHtml(currentFilters = {}, totalCount = 0, matchCoun
         ${
           showViewToggle
             ? `
-          <div class="filter-view-toggle" role="group" aria-label="Display View">
+          <div class="filter-view-toggle segmented-control" role="group" aria-label="Display View">
             <button
               type="button"
-              class="btn-view-toggle ${view === 'slider' ? 'is-active' : ''}"
+              class="segmented-btn btn-view-toggle ${view === 'slider' ? 'is-active' : ''}"
               data-view="slider"
               aria-pressed="${view === 'slider'}"
               title="Carousel Slider View"
             >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true">
-                <rect x="2" y="5" width="20" height="14" rx="2"></rect>
-                <line x1="2" y1="10" x2="22" y2="10"></line>
-              </svg>
-              <span>Slider</span>
+              Slider
             </button>
             <button
               type="button"
-              class="btn-view-toggle ${view === 'grid' ? 'is-active' : ''}"
+              class="segmented-btn btn-view-toggle ${view === 'grid' ? 'is-active' : ''}"
               data-view="grid"
               aria-pressed="${view === 'grid'}"
               title="Responsive Grid View"
             >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true">
-                <rect x="3" y="3" width="7" height="7"></rect>
-                <rect x="14" y="3" width="7" height="7"></rect>
-                <rect x="14" y="14" width="7" height="7"></rect>
-                <rect x="3" y="14" width="7" height="7"></rect>
-              </svg>
-              <span>Grid</span>
+              Grid
             </button>
           </div>
         `
