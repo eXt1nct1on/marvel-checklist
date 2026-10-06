@@ -84,9 +84,9 @@ export function renderProfilesPage(container) {
             <div>
               <div style="display:flex; justify-content:space-between; margin-bottom: 4px;">
                 <label for="range-bg-video-opacity" style="font-size: 14px; font-weight: bold;">Video Opacity</label>
-                <span id="label-bg-video-opacity" style="font-size: 14px;">${activeProfile.prefs.bgVideoOpacity !== undefined ? activeProfile.prefs.bgVideoOpacity : (document.documentElement.getAttribute('data-theme') === 'light' ? 0.10 : 0.20)}</span>
+                <span id="label-bg-video-opacity" style="font-size: 14px;">${activeProfile.prefs.bgVideoOpacity !== undefined ? activeProfile.prefs.bgVideoOpacity : (document.documentElement.getAttribute('data-theme') === 'light' ? 0.30 : 0.20)}</span>
               </div>
-              <input type="range" id="range-bg-video-opacity" min="0.05" max="0.40" step="0.05" value="${activeProfile.prefs.bgVideoOpacity !== undefined ? activeProfile.prefs.bgVideoOpacity : (document.documentElement.getAttribute('data-theme') === 'light' ? 0.10 : 0.20)}" style="width: 100%;">
+              <input type="range" id="range-bg-video-opacity" min="0.05" max="0.40" step="0.05" value="${activeProfile.prefs.bgVideoOpacity !== undefined ? activeProfile.prefs.bgVideoOpacity : (document.documentElement.getAttribute('data-theme') === 'light' ? 0.30 : 0.20)}" style="width: 100%;">
             </div>
           </div>
         </div>

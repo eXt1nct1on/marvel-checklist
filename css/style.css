@@ -9,7 +9,7 @@
    ───────────────────────────────────────────── */
 :root {
   --bg:        #F5F2EA;   /* warm off-white paper */
-  --bg-video-opacity: 0.10;
+  --bg-video-opacity: 0.30;
   --surface:   #FFFFFF;
   --surface-2: #ECE8DD;
   --border:    #151515;

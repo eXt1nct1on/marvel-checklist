@@ -64,5 +64,5 @@ The system is fully responsive to Light and Dark modes via `data-theme="light|da
 
 The optional YouTube background video adheres to the flat design rules:
 1. **Zero Gradients**: The background is a solid embedded iframe behind the content.
-2. **Opacity Dimming**: To ensure text readability on solid `--surface` containers, the background layer relies solely on a flat CSS `opacity: var(--bg-video-opacity)` (default 0.20 in dark mode, 0.10 in light mode). No gradient overlays or blurs are used.
+2. **Opacity Dimming**: To ensure text readability on solid `--surface` containers, the background layer relies solely on a flat CSS `opacity: var(--bg-video-opacity)` (default 0.20 in dark mode, 0.30 in light mode). No gradient overlays or blurs are used.
 3. **Data/Battery Saver**: The background video respects `prefers-reduced-motion`, `saveData`, and slow network connections, falling back to a static facade image.
