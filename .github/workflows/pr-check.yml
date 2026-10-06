@@ -1,0 +1,40 @@
+name: PR Checks
+
+on:
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          
+      - name: Check Secrets
+        run: node scripts/check-secrets.mjs
+        
+      - name: Validate Data
+        run: node scripts/validate-data.mjs
+        
+      - name: Sanity Check HTML Assets
+        run: |
+          node -e "
+          const fs = require('fs');
+          const content = fs.readFileSync('index.html', 'utf8');
+          const matches = [...content.matchAll(/(href|src)=[\"']\.\/([^\"']+)[\"']/g)];
+          let missing = 0;
+          for (const match of matches) {
+            const asset = match[2];
+            if (!fs.existsSync(asset)) {
+              console.error('Missing asset:', asset);
+              missing++;
+            }
+          }
+          if (missing > 0) process.exit(1);
+          "
