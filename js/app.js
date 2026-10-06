@@ -49,10 +49,6 @@ function handleRoute() {
   const mainEl = document.getElementById('app-main');
   if (!mainEl) return;
 
-  // Hide initial loading state
-  const loading = mainEl.querySelector('.initial-loading-state');
-  if (loading) loading.hidden = true;
-
   // Hide all routes
   Object.values(routeContainers).forEach(el => {
     el.hidden = true;
