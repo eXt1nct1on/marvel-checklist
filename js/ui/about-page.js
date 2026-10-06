@@ -4,7 +4,7 @@
  */
 
 export function renderAboutPage(container) {
-  const html = \`
+  const html = `
     <div class="page-about" style="max-width: 1000px; margin: 0 auto; padding-top: 16px; border-top: 4px solid var(--text);">
       <h1 class="display-font" style="font-size: 48px; margin-bottom: 24px;">ABOUT & ATTRIBUTION</h1>
 
@@ -59,7 +59,7 @@ export function renderAboutPage(container) {
         </div>
       </section>
     </div>
-  \`;
+  `;
 
   container.innerHTML = html;
 }

@@ -23,12 +23,12 @@ export function renderHeader(headerEl, currentRoute = '#/home') {
     { hash: '#/about', label: 'About', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>' }
   ];
 
-  const html = \`
-    \${!store.isStorageAvailable || store.hasStorageWarning ? \`
+  const html = `
+    ${!store.isStorageAvailable || store.hasStorageWarning ? `
       <div style="background:var(--red); color:var(--on-red); padding: 8px; text-align: center; font-weight:bold; font-size:14px;">
         Progress can't be saved in this browser mode. Operating in temporary memory.
       </div>
-    \` : ''}
+    ` : ''}
 
     <header class="app-header">
       <a href="#/home" class="header-brand">
@@ -36,23 +36,23 @@ export function renderHeader(headerEl, currentRoute = '#/home') {
       </a>
 
       <nav class="header-nav">
-        \${navLinks.map((link) => {
+        ${navLinks.map((link) => {
           const isActive = currentRoute === link.hash || (link.hash === '#/home' && currentRoute === '#/');
-          return \`<a href="\${link.hash}" class="\${isActive ? 'is-active' : ''}">\${escapeHtml(link.label)}</a>\`;
+          return `<a href="${link.hash}" class="${isActive ? 'is-active' : ''}">${escapeHtml(link.label)}</a>`;
         }).join('')}
       </nav>
 
       <div class="header-controls">
         <select id="profile-select" class="btn btn-sm" style="appearance: none; padding-right: 24px; cursor: pointer;" aria-label="Switch Profile">
-          \${profiles.map(p => \`
-            <option value="\${escapeHtml(p.id)}" \${p.id === activeProfile.id ? 'selected' : ''}>
-              \${escapeHtml(p.name)}
+          ${profiles.map(p => `
+            <option value="${escapeHtml(p.id)}" ${p.id === activeProfile.id ? 'selected' : ''}>
+              ${escapeHtml(p.name)}
             </option>
-          \`).join('')}
+          `).join('')}
         </select>
         
         <button type="button" class="btn btn-sm" id="btn-theme-toggle" aria-label="Toggle Theme">
-          \${isDark 
+          ${isDark 
             ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>'
             : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>'
           }
@@ -62,17 +62,17 @@ export function renderHeader(headerEl, currentRoute = '#/home') {
 
     <!-- Mobile Bottom Navigation -->
     <nav class="mobile-nav">
-      \${navLinks.map((link) => {
+      ${navLinks.map((link) => {
         const isActive = currentRoute === link.hash || (link.hash === '#/home' && currentRoute === '#/');
-        return \`
-          <a href="\${link.hash}" class="\${isActive ? 'is-active' : ''}" aria-label="\${escapeHtml(link.label)}">
-            \${link.icon}
-            <span>\${escapeHtml(link.label)}</span>
+        return `
+          <a href="${link.hash}" class="${isActive ? 'is-active' : ''}" aria-label="${escapeHtml(link.label)}">
+            ${link.icon}
+            <span>${escapeHtml(link.label)}</span>
           </a>
-        \`;
+        `;
       }).join('')}
     </nav>
-  \`;
+  `;
 
   headerEl.innerHTML = html;
 
@@ -82,7 +82,7 @@ export function renderHeader(headerEl, currentRoute = '#/home') {
       const id = e.target.value;
       if (id) {
         store.setActiveProfile(id);
-        announceLiveMessage(\`Switched active profile to \${store.getActiveProfile().name}\`);
+        announceLiveMessage(`Switched active profile to ${store.getActiveProfile().name}`);
         window.dispatchEvent(new CustomEvent('app:rerender'));
       }
     });
@@ -95,7 +95,7 @@ export function renderHeader(headerEl, currentRoute = '#/home') {
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', newTheme);
       store.updatePrefs({ theme: newTheme });
-      announceLiveMessage(\`Switched to \${newTheme} theme\`);
+      announceLiveMessage(`Switched to ${newTheme} theme`);
       renderHeader(headerEl, currentRoute);
     });
   }

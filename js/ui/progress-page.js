@@ -63,51 +63,51 @@ export function renderProgressPage(container) {
     groupedUnwatched[u][f].push(movie);
   }
 
-  const html = \`
+  const html = `
     <div class="page-progress">
       <section class="section-container" style="border-top: 4px solid var(--text); padding-top: 16px;">
-        <h1 class="display-font" style="font-size: 48px; margin-bottom: 24px;">PROGRESS: \${escapeHtml(profile.name)}</h1>
+        <h1 class="display-font" style="font-size: 48px; margin-bottom: 24px;">PROGRESS: ${escapeHtml(profile.name)}</h1>
         
         <div style="display: flex; gap: 8px; margin-bottom: 24px;">
           <span style="font-weight: bold; align-self: center;">CATALOG:</span>
-          <button class="btn btn-sm \${catalogScope === 'core' ? 'btn-primary' : ''}" data-scope="core">Core</button>
-          <button class="btn btn-sm \${catalogScope === 'extended' ? 'btn-primary' : ''}" data-scope="extended">+ Extended</button>
-          <button class="btn btn-sm \${catalogScope === 'everything' ? 'btn-primary' : ''}" data-scope="everything">Everything</button>
+          <button class="btn btn-sm ${catalogScope === 'core' ? 'btn-primary' : ''}" data-scope="core">Core</button>
+          <button class="btn btn-sm ${catalogScope === 'extended' ? 'btn-primary' : ''}" data-scope="extended">+ Extended</button>
+          <button class="btn btn-sm ${catalogScope === 'everything' ? 'btn-primary' : ''}" data-scope="everything">Everything</button>
         </div>
 
         <div class="progress-strip">
           <div class="progress-item">
             <div class="progress-item-header">
               <span class="progress-item-title">Total</span>
-              <span class="progress-item-val">\${watchedInScope} <span style="font-size: 14px; color: var(--muted)">/ \${totalCount}</span></span>
+              <span class="progress-item-val">${watchedInScope} <span style="font-size: 14px; color: var(--muted)">/ ${totalCount}</span></span>
             </div>
-            <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width: \${overallPct}%; background-color: var(--text)"></div></div>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width: ${overallPct}%; background-color: var(--text)"></div></div>
           </div>
           <div class="progress-item">
             <div class="progress-item-header">
               <span class="progress-item-title">Marvel</span>
-              <span class="progress-item-val">\${marvelWatched} <span style="font-size: 14px; color: var(--muted)">/ \${marvelList.length}</span></span>
+              <span class="progress-item-val">${marvelWatched} <span style="font-size: 14px; color: var(--muted)">/ ${marvelList.length}</span></span>
             </div>
-            <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width: \${marvelPct}%"></div></div>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width: ${marvelPct}%"></div></div>
           </div>
           <div class="progress-item">
             <div class="progress-item-header">
               <span class="progress-item-title">DC</span>
-              <span class="progress-item-val">\${dcWatched} <span style="font-size: 14px; color: var(--muted)">/ \${dcList.length}</span></span>
+              <span class="progress-item-val">${dcWatched} <span style="font-size: 14px; color: var(--muted)">/ ${dcList.length}</span></span>
             </div>
-            <div class="progress-bar-wrap"><div class="progress-bar-fill dc-fill" style="width: \${dcPct}%"></div></div>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill dc-fill" style="width: ${dcPct}%"></div></div>
           </div>
         </div>
 
         <div style="border: 2px solid var(--border); padding: 16px; margin-bottom: 32px; background: var(--surface)">
           <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-            <strong>BEFORE DOOMSDAY: \${doomsdayLeft} LEFT (\${daysRemaining} DAYS)</strong>
+            <strong>BEFORE DOOMSDAY: ${doomsdayLeft} LEFT (${daysRemaining} DAYS)</strong>
             <div style="display:flex; gap:8px;">
-              <button class="btn btn-sm \${!doomsdayIncludeOptional ? 'btn-primary' : ''}" id="progress-doomsday-official">Official</button>
-              <button class="btn btn-sm \${doomsdayIncludeOptional ? 'btn-primary' : ''}" id="progress-doomsday-optional">+ Optional</button>
+              <button class="btn btn-sm ${!doomsdayIncludeOptional ? 'btn-primary' : ''}" id="progress-doomsday-official">Official</button>
+              <button class="btn btn-sm ${doomsdayIncludeOptional ? 'btn-primary' : ''}" id="progress-doomsday-optional">+ Optional</button>
             </div>
           </div>
-          <div class="progress-bar-wrap"><div class="progress-bar-fill" style="background-color: var(--gold-fill); width: \${doomsdayPct}%"></div></div>
+          <div class="progress-bar-wrap"><div class="progress-bar-fill" style="background-color: var(--gold-fill); width: ${doomsdayPct}%"></div></div>
         </div>
       </section>
 
@@ -115,27 +115,27 @@ export function renderProgressPage(container) {
         <div class="section-header">
           <h2 class="section-title">ACTIVE QUEUE</h2>
         </div>
-        \${renderUpNextContent(upNextState)}
+        ${renderUpNextContent(upNextState)}
       </section>
 
       <section class="section-container">
         <div class="section-header">
-          <h2 class="section-title">WATCHED HISTORY (\${watchedMovies.length})</h2>
+          <h2 class="section-title">WATCHED HISTORY (${watchedMovies.length})</h2>
         </div>
-        \${renderWatchedList(watchedMovies)}
+        ${renderWatchedList(watchedMovies)}
       </section>
 
       <section class="section-container">
         <div class="section-header">
-          <h2 class="section-title">UNWATCHED BACKLOG (\${unwatchedList.length})</h2>
+          <h2 class="section-title">UNWATCHED BACKLOG (${unwatchedList.length})</h2>
         </div>
         <div id="unwatched-filter-controls" style="margin-bottom: 24px;">
-          \${renderFiltersHtml(prefs.filters, unwatchedList.length, unwatchedFiltered.length, { showViewToggle: false })}
+          ${renderFiltersHtml(prefs.filters, unwatchedList.length, unwatchedFiltered.length, { showViewToggle: false })}
         </div>
-        \${renderGroupedUnwatched(groupedUnwatched)}
+        ${renderGroupedUnwatched(groupedUnwatched)}
       </section>
     </div>
-  \`;
+  `;
 
   container.innerHTML = html;
 
@@ -182,44 +182,44 @@ function renderUpNextContent(upNextState) {
   const current = upNextState.current;
   const queue = upNextState.queue;
 
-  return \`
+  return `
     <div style="display: grid; grid-template-columns: 1fr; gap: 24px;">
       <div>
         <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 24px; margin-bottom: 16px;">🎯 TARGET</h3>
         <div style="max-width: 200px;">
-          \${renderCardHtml(current)}
+          ${renderCardHtml(current)}
         </div>
       </div>
       <div>
         <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 24px; margin-bottom: 16px;">ON DECK</h3>
         <div style="display:flex; flex-direction: column; gap: 8px;">
-          \${queue.map(m => \`
+          ${queue.map(m => `
             <div style="border: 2px solid var(--border); padding: 12px; display: flex; justify-content: space-between; align-items: center; background: var(--surface);">
-              <div><strong>\${escapeHtml(m.title)}</strong> <span style="font-size: 12px; color: var(--muted); margin-left: 8px;">\${escapeHtml(formatReleaseDisplay(m.release))}</span></div>
-              \${!m.upcoming ? \`<button class="btn btn-sm btn-queue-watch" data-movie-id="\${escapeHtml(m.id)}">Watch</button>\` : '<span class="badge">Upcoming</span>'}
+              <div><strong>${escapeHtml(m.title)}</strong> <span style="font-size: 12px; color: var(--muted); margin-left: 8px;">${escapeHtml(formatReleaseDisplay(m.release))}</span></div>
+              ${!m.upcoming ? `<button class="btn btn-sm btn-queue-watch" data-movie-id="${escapeHtml(m.id)}">Watch</button>` : '<span class="badge">Upcoming</span>'}
             </div>
-          \`).join('')}
+          `).join('')}
         </div>
       </div>
     </div>
-  \`;
+  `;
 }
 
 function renderWatchedList(watchedMovies) {
   if (watchedMovies.length === 0) return '<p>No watched titles yet.</p>';
-  return \`
+  return `
     <div class="grid-container">
-      \${watchedMovies.map(m => \`
+      ${watchedMovies.map(m => `
         <div style="border: 2px solid var(--border); background: var(--surface); display: flex; flex-direction: column;">
           <div style="padding: 12px; border-bottom: 2px solid var(--border);">
-            <strong style="display:block; font-size: 14px; margin-bottom:4px;">\${escapeHtml(m.title)}</strong>
-            <span style="font-size:12px; color:var(--muted)">\${escapeHtml(new Date(m.watchedAt).toLocaleDateString())}</span>
+            <strong style="display:block; font-size: 14px; margin-bottom:4px;">${escapeHtml(m.title)}</strong>
+            <span style="font-size:12px; color:var(--muted)">${escapeHtml(new Date(m.watchedAt).toLocaleDateString())}</span>
           </div>
-          <button class="btn btn-sm btn-undo-watch" style="border: none; border-radius: 0; width: 100%;" data-movie-id="\${escapeHtml(m.id)}">Undo</button>
+          <button class="btn btn-sm btn-undo-watch" style="border: none; border-radius: 0; width: 100%;" data-movie-id="${escapeHtml(m.id)}">Undo</button>
         </div>
-      \`).join('')}
+      `).join('')}
     </div>
-  \`;
+  `;
 }
 
 function renderGroupedUnwatched(groupedUnwatched) {
@@ -230,19 +230,19 @@ function renderGroupedUnwatched(groupedUnwatched) {
     const franchiseKeys = Object.keys(franchises);
     if (franchiseKeys.length === 0) return;
     
-    html += \`<div style="margin-bottom: 40px;"><h3 class="display-font" style="font-size: 32px; border-bottom: 4px solid var(--border); margin-bottom: 16px;">\${universe}</h3>\`;
+    html += `<div style="margin-bottom: 40px;"><h3 class="display-font" style="font-size: 32px; border-bottom: 4px solid var(--border); margin-bottom: 16px;">${universe}</h3>`;
     
     franchiseKeys.forEach(franchise => {
       const movies = franchises[franchise];
       if (movies.length === 0) return;
-      html += \`
-        <h4 style="margin: 24px 0 16px; font-weight: bold; text-transform: uppercase;">\${escapeHtml(franchise)}</h4>
+      html += `
+        <h4 style="margin: 24px 0 16px; font-weight: bold; text-transform: uppercase;">${escapeHtml(franchise)}</h4>
         <div class="grid-container">
-          \${movies.map(m => renderCardHtml(m)).join('')}
+          ${movies.map(m => renderCardHtml(m)).join('')}
         </div>
-      \`;
+      `;
     });
-    html += \`</div>\`;
+    html += `</div>`;
   });
 
   return html || '<p>No unwatched titles match filters.</p>';

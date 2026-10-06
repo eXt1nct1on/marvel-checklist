@@ -46,59 +46,59 @@ export function renderPlanPage(container) {
 
   const isCurrentPlanSaved = savedPlan && savedPlan.order === planGeneratorState.order && savedPlan.scope === planGeneratorState.scope && Boolean(savedPlan.skipWatched) === Boolean(planGeneratorState.skipWatched);
 
-  const html = \`
+  const html = `
     <div class="page-plan" style="max-width: 1000px; margin: 0 auto; padding-top: 16px; border-top: 4px solid var(--text);">
       <h1 class="display-font" style="font-size: 48px; margin-bottom: 24px;">WATCH PLAN BUILDER</h1>
       
-      \${savedPlan 
-        ? \`<div style="background: var(--text); color: var(--bg); padding: 12px 16px; font-weight: bold; margin-bottom: 32px; display:inline-block;">ACTIVE PLAN: \${formatScopeName(savedPlan.scope).toUpperCase()} (\${savedPlan.order.toUpperCase()})</div>\`
-        : \`<div style="margin-bottom: 32px; padding: 12px; border: 2px dashed var(--border);">No active plan saved yet.</div>\`
+      ${savedPlan 
+        ? `<div style="background: var(--text); color: var(--bg); padding: 12px 16px; font-weight: bold; margin-bottom: 32px; display:inline-block;">ACTIVE PLAN: ${formatScopeName(savedPlan.scope).toUpperCase()} (${savedPlan.order.toUpperCase()})</div>`
+        : `<div style="margin-bottom: 32px; padding: 12px; border: 2px dashed var(--border);">No active plan saved yet.</div>`
       }
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 40px; padding: 24px; border: 2px solid var(--border); background: var(--surface);">
         <div>
           <strong style="display:block; margin-bottom: 8px;">1. CATALOG SCOPE</strong>
           <div style="display:flex; gap:8px;">
-            <button class="btn btn-sm btn-breadth-toggle \${catalogScope === 'core' ? 'btn-primary' : ''}" data-scope="core">Core</button>
-            <button class="btn btn-sm btn-breadth-toggle \${catalogScope === 'extended' ? 'btn-primary' : ''}" data-scope="extended">+ Extended</button>
-            <button class="btn btn-sm btn-breadth-toggle \${catalogScope === 'everything' ? 'btn-primary' : ''}" data-scope="everything">Everything</button>
+            <button class="btn btn-sm btn-breadth-toggle ${catalogScope === 'core' ? 'btn-primary' : ''}" data-scope="core">Core</button>
+            <button class="btn btn-sm btn-breadth-toggle ${catalogScope === 'extended' ? 'btn-primary' : ''}" data-scope="extended">+ Extended</button>
+            <button class="btn btn-sm btn-breadth-toggle ${catalogScope === 'everything' ? 'btn-primary' : ''}" data-scope="everything">Everything</button>
           </div>
         </div>
         
         <div>
           <strong style="display:block; margin-bottom: 8px;">2. ORDER</strong>
           <div style="display:flex; gap:8px;">
-            <label><input type="radio" name="plan-order" value="\${ORDERS.RELEASE}" \${planGeneratorState.order === ORDERS.RELEASE ? 'checked' : ''}> Release</label>
-            <label><input type="radio" name="plan-order" value="\${ORDERS.CHRONOLOGICAL}" \${planGeneratorState.order === ORDERS.CHRONOLOGICAL ? 'checked' : ''}> Chronological</label>
+            <label><input type="radio" name="plan-order" value="${ORDERS.RELEASE}" ${planGeneratorState.order === ORDERS.RELEASE ? 'checked' : ''}> Release</label>
+            <label><input type="radio" name="plan-order" value="${ORDERS.CHRONOLOGICAL}" ${planGeneratorState.order === ORDERS.CHRONOLOGICAL ? 'checked' : ''}> Chronological</label>
           </div>
         </div>
 
         <div>
           <strong style="display:block; margin-bottom: 8px;">3. TIMELINE SCOPE</strong>
           <select id="plan-scope-select" style="width: 100%; padding: 8px; border: 2px solid var(--border); background: var(--surface); color: var(--text); font-family: inherit;">
-            <option value="\${SCOPES.DOOMSDAY_OFFICIAL}" \${planGeneratorState.scope === SCOPES.DOOMSDAY_OFFICIAL ? 'selected' : ''}>Before Doomsday (Official) - \${officialCount}</option>
-            <option value="\${SCOPES.DOOMSDAY_OPTIONAL}" \${planGeneratorState.scope === SCOPES.DOOMSDAY_OPTIONAL ? 'selected' : ''}>Before Doomsday + Optional - \${optionalCount}</option>
-            <option value="\${SCOPES.ALL_MARVEL}" \${planGeneratorState.scope === SCOPES.ALL_MARVEL ? 'selected' : ''}>All Marvel - \${marvelCount}</option>
-            <option value="\${SCOPES.ALL_DC}" \${planGeneratorState.scope === SCOPES.ALL_DC ? 'selected' : ''}>All DC - \${dcCount}</option>
-            <option value="\${SCOPES.EVERYTHING}" \${planGeneratorState.scope === SCOPES.EVERYTHING ? 'selected' : ''}>Everything - \${everythingCount}</option>
+            <option value="${SCOPES.DOOMSDAY_OFFICIAL}" ${planGeneratorState.scope === SCOPES.DOOMSDAY_OFFICIAL ? 'selected' : ''}>Before Doomsday (Official) - ${officialCount}</option>
+            <option value="${SCOPES.DOOMSDAY_OPTIONAL}" ${planGeneratorState.scope === SCOPES.DOOMSDAY_OPTIONAL ? 'selected' : ''}>Before Doomsday + Optional - ${optionalCount}</option>
+            <option value="${SCOPES.ALL_MARVEL}" ${planGeneratorState.scope === SCOPES.ALL_MARVEL ? 'selected' : ''}>All Marvel - ${marvelCount}</option>
+            <option value="${SCOPES.ALL_DC}" ${planGeneratorState.scope === SCOPES.ALL_DC ? 'selected' : ''}>All DC - ${dcCount}</option>
+            <option value="${SCOPES.EVERYTHING}" ${planGeneratorState.scope === SCOPES.EVERYTHING ? 'selected' : ''}>Everything - ${everythingCount}</option>
           </select>
         </div>
 
         <div>
           <strong style="display:block; margin-bottom: 8px;">4. FILTER</strong>
-          <label><input type="checkbox" id="toggle-skip-watched" \${planGeneratorState.skipWatched ? 'checked' : ''}> Skip watched titles</label>
+          <label><input type="checkbox" id="toggle-skip-watched" ${planGeneratorState.skipWatched ? 'checked' : ''}> Skip watched titles</label>
         </div>
       </div>
 
       <div style="display: flex; gap: 16px; margin-bottom: 40px;">
-        <button type="button" class="btn \${isCurrentPlanSaved ? '' : 'btn-primary'} btn-lg" id="btn-save-plan">\${isCurrentPlanSaved ? 'Plan Saved ✓' : 'Save as My Plan'}</button>
-        \${savedPlan ? \`<button type="button" class="btn btn-secondary btn-lg" id="btn-reset-plan">Reset Plan</button>\` : ''}
+        <button type="button" class="btn ${isCurrentPlanSaved ? '' : 'btn-primary'} btn-lg" id="btn-save-plan">${isCurrentPlanSaved ? 'Plan Saved ✓' : 'Save as My Plan'}</button>
+        ${savedPlan ? `<button type="button" class="btn btn-secondary btn-lg" id="btn-reset-plan">Reset Plan</button>` : ''}
       </div>
 
-      <h2 class="display-font" style="font-size: 32px; border-bottom: 4px solid var(--border); margin-bottom: 16px;">LIVE PREVIEW (\${planResult.remainingCount} REMAINING)</h2>
-      \${renderPlanItemsList(planResult.items, watchedMap)}
+      <h2 class="display-font" style="font-size: 32px; border-bottom: 4px solid var(--border); margin-bottom: 16px;">LIVE PREVIEW (${planResult.remainingCount} REMAINING)</h2>
+      ${renderPlanItemsList(planResult.items, watchedMap)}
     </div>
-  \`;
+  `;
 
   container.innerHTML = html;
 
@@ -187,25 +187,25 @@ function formatScopeName(scope) {
 function renderPlanItemsList(items, watchedMap) {
   if (items.length === 0) return '<p>No remaining titles in this plan sequence.</p>';
 
-  return \`
+  return `
     <div style="display:flex; flex-direction:column; gap:8px;">
-      \${items.map((movie, index) => {
+      ${items.map((movie, index) => {
         const isWatched = store.isWatched(movie.id, movie.seasons);
-        return \`
+        return `
           <div style="display:flex; align-items:center; gap:16px; padding:12px; border:2px solid var(--border); background:var(--surface);">
-            <div style="font-family:'Bebas Neue', sans-serif; font-size:24px; min-width:32px;">\${index + 1}</div>
+            <div style="font-family:'Bebas Neue', sans-serif; font-size:24px; min-width:32px;">${index + 1}</div>
             <div style="flex-grow:1;">
-              <strong style="display:block; font-size:18px;">\${escapeHtml(movie.title)}</strong>
+              <strong style="display:block; font-size:18px;">${escapeHtml(movie.title)}</strong>
               <div style="font-size:12px; color:var(--muted); text-transform:uppercase;">
-                \${escapeHtml(movie.universe)} • \${escapeHtml(movie.franchise.split('(')[0].trim())} • \${escapeHtml(formatReleaseDisplay(movie.release))}
+                ${escapeHtml(movie.universe)} • ${escapeHtml(movie.franchise.split('(')[0].trim())} • ${escapeHtml(formatReleaseDisplay(movie.release))}
               </div>
             </div>
             <div>
-              \${!movie.upcoming ? \`<button class="btn btn-sm btn-plan-row-toggle \${isWatched ? '' : 'btn-primary'}" data-movie-id="\${escapeHtml(movie.id)}">\${isWatched ? 'Watched ✓' : 'Mark Watched'}</button>\` : '<span class="badge">Upcoming</span>'}
+              ${!movie.upcoming ? `<button class="btn btn-sm btn-plan-row-toggle ${isWatched ? '' : 'btn-primary'}" data-movie-id="${escapeHtml(movie.id)}">${isWatched ? 'Watched ✓' : 'Mark Watched'}</button>` : '<span class="badge">Upcoming</span>'}
             </div>
           </div>
-        \`;
+        `;
       }).join('')}
     </div>
-  \`;
+  `;
 }

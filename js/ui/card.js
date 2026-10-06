@@ -38,6 +38,18 @@ export function escapeHtml(str) {
     .replace(/'/g, '&#39;');
 }
 
+export function announceLiveMessage(message) {
+  let el = document.getElementById('a11y-live-region');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'a11y-live-region';
+    el.setAttribute('aria-live', 'polite');
+    el.className = 'sr-only';
+    document.body.appendChild(el);
+  }
+  el.textContent = message;
+}
+
 export function renderCardHtml(movie, options = {}) {
   const isWatched = store.isWatched(movie.id, movie.seasons);
   const watchedSeasons = store.getWatchedSeasons(movie.id);
@@ -230,7 +242,7 @@ store.subscribe(() => {
       btn.setAttribute('aria-checked', isWatched);
       const labelEl = btn.querySelector('.watch-label');
       if (labelEl) {
-        labelEl.textContent = isWatched ? 'Watched' : isPartiallyWatched ? \`\${watchedSeasons.length}/\${movie.seasons} Watched\` : 'Mark Watched';
+        labelEl.textContent = isWatched ? 'Watched' : isPartiallyWatched ? `${watchedSeasons.length}/${movie.seasons} Watched` : 'Mark Watched';
       }
     }
   });

@@ -11,39 +11,39 @@ export function renderProfilesPage(container) {
   const activeProfile = store.getActiveProfile();
   const activeProfileId = store.getActiveProfileId();
 
-  const html = \`
+  const html = `
     <div class="page-profiles" style="max-width: 1000px; margin: 0 auto; padding-top: 16px; border-top: 4px solid var(--text);">
       <h1 class="display-font" style="font-size: 48px; margin-bottom: 24px;">PROFILES & DATA</h1>
       
       <div style="display:flex; align-items:center; gap: 16px; padding: 16px; border: 2px solid var(--border); background: var(--surface); margin-bottom: 40px;">
         <div style="width: 48px; height: 48px; border: 2px solid var(--border); display: flex; align-items:center; justify-content:center; font-family: 'Bebas Neue', sans-serif; font-size: 24px; background: var(--red); color: var(--on-red);">
-          \${escapeHtml(activeProfile.name.charAt(0).toUpperCase())}
+          ${escapeHtml(activeProfile.name.charAt(0).toUpperCase())}
         </div>
         <div>
           <strong style="display:block; font-size: 14px; letter-spacing:0.05em; color:var(--muted);">ACTIVE PROFILE</strong>
-          <h2 class="display-font" style="font-size: 32px; margin:0;">\${escapeHtml(activeProfile.name)}</h2>
+          <h2 class="display-font" style="font-size: 32px; margin:0;">${escapeHtml(activeProfile.name)}</h2>
         </div>
       </div>
 
       <section class="section-container" style="margin-bottom: 40px;">
         <h2 class="section-title">ALL PROFILES</h2>
         <div class="grid-container">
-          \${profiles.map(p => {
+          ${profiles.map(p => {
             const isActive = p.id === activeProfileId;
             const watchedCount = Object.keys(p.watched || {}).length;
-            return \`
-              <div style="border: 2px solid \${isActive ? 'var(--red)' : 'var(--border)'}; background: var(--surface); padding: 16px; display:flex; flex-direction:column; gap:16px;">
+            return `
+              <div style="border: 2px solid ${isActive ? 'var(--red)' : 'var(--border)'}; background: var(--surface); padding: 16px; display:flex; flex-direction:column; gap:16px;">
                 <div>
-                  <h3 class="display-font" style="font-size: 24px; margin:0;">\${escapeHtml(p.name)}</h3>
-                  <span style="font-size:12px; color:var(--muted);">\${watchedCount} titles watched</span>
+                  <h3 class="display-font" style="font-size: 24px; margin:0;">${escapeHtml(p.name)}</h3>
+                  <span style="font-size:12px; color:var(--muted);">${watchedCount} titles watched</span>
                 </div>
                 <div style="display:flex; gap:8px;">
-                  \${isActive ? '<button class="btn btn-sm" disabled style="opacity:0.5; cursor:not-allowed;">Active</button>' : \`<button class="btn btn-sm btn-primary btn-switch-profile" data-profile-id="\${escapeHtml(p.id)}">Switch</button>\`}
-                  <button class="btn btn-sm btn-rename-profile" data-profile-id="\${escapeHtml(p.id)}" data-profile-name="\${escapeHtml(p.name)}">Rename</button>
-                  \${profiles.length > 1 ? \`<button class="btn btn-sm btn-delete-profile" style="color:var(--red-text);" data-profile-id="\${escapeHtml(p.id)}" data-profile-name="\${escapeHtml(p.name)}">Delete</button>\` : ''}
+                  ${isActive ? '<button class="btn btn-sm" disabled style="opacity:0.5; cursor:not-allowed;">Active</button>' : `<button class="btn btn-sm btn-primary btn-switch-profile" data-profile-id="${escapeHtml(p.id)}">Switch</button>`}
+                  <button class="btn btn-sm btn-rename-profile" data-profile-id="${escapeHtml(p.id)}" data-profile-name="${escapeHtml(p.name)}">Rename</button>
+                  ${profiles.length > 1 ? `<button class="btn btn-sm btn-delete-profile" style="color:var(--red-text);" data-profile-id="${escapeHtml(p.id)}" data-profile-name="${escapeHtml(p.name)}">Delete</button>` : ''}
                 </div>
               </div>
-            \`;
+            `;
           }).join('')}
           <div style="border: 2px dashed var(--border); padding: 16px; display:flex; flex-direction:column; justify-content:center; gap: 8px;">
             <strong style="font-size: 14px;">+ NEW PROFILE</strong>
@@ -63,14 +63,14 @@ export function renderProfilesPage(container) {
               <strong style="display:block;">Movie & Series Posters</strong>
               <span style="font-size:12px; color:var(--muted);">Disable to use data-saver placeholder mode</span>
             </div>
-            <label><input type="checkbox" id="toggle-show-posters" \${store.getShowPosters() ? 'checked' : ''}> Show</label>
+            <label><input type="checkbox" id="toggle-show-posters" ${store.getShowPosters() ? 'checked' : ''}> Show</label>
           </div>
           <div style="display:flex; align-items:center; justify-content:space-between; border:2px solid var(--border); padding:16px; background:var(--surface);">
             <div>
               <strong style="display:block;">Doomsday Optional Picks</strong>
               <span style="font-size:12px; color:var(--muted);">Include 14 optional titles with official 15</span>
             </div>
-            <label><input type="checkbox" id="toggle-doomsday-optional-pref" \${store.getDoomsdayIncludeOptional() ? 'checked' : ''}> Include</label>
+            <label><input type="checkbox" id="toggle-doomsday-optional-pref" ${store.getDoomsdayIncludeOptional() ? 'checked' : ''}> Include</label>
           </div>
         </div>
       </section>
@@ -81,7 +81,7 @@ export function renderProfilesPage(container) {
           <div style="border:2px solid var(--border); padding:16px; background:var(--surface);">
             <strong style="display:block; margin-bottom:16px;">EXPORT</strong>
             <div style="display:flex; flex-direction:column; gap:8px;">
-              <button type="button" class="btn btn-sm btn-primary" id="btn-export-active">Export "\${escapeHtml(activeProfile.name)}"</button>
+              <button type="button" class="btn btn-sm btn-primary" id="btn-export-active">Export "${escapeHtml(activeProfile.name)}"</button>
               <button type="button" class="btn btn-sm" id="btn-export-all">Export All Profiles</button>
             </div>
           </div>
@@ -106,7 +106,7 @@ export function renderProfilesPage(container) {
         <button type="button" class="btn" style="border-color:var(--red-text); color:var(--red-text);" id="btn-danger-reset">Factory Reset All Data</button>
       </section>
     </div>
-  \`;
+  `;
 
   container.innerHTML = html;
 
@@ -117,7 +117,7 @@ export function renderProfilesPage(container) {
       const input = container.querySelector('#input-new-profile-name');
       if (input && input.value.trim()) {
         const newProf = store.createProfile(input.value.trim());
-        announceLiveMessage(\`Created profile "\${newProf.name}"\`);
+        announceLiveMessage(`Created profile "${newProf.name}"`);
         renderProfilesPage(container);
       }
     });
@@ -128,7 +128,7 @@ export function renderProfilesPage(container) {
       const id = btn.getAttribute('data-profile-id');
       if (id) {
         store.setActiveProfile(id);
-        announceLiveMessage(\`Switched to profile "\${store.getActiveProfile().name}"\`);
+        announceLiveMessage(`Switched to profile "${store.getActiveProfile().name}"`);
         renderProfilesPage(container);
       }
     });
@@ -138,10 +138,10 @@ export function renderProfilesPage(container) {
     btn.addEventListener('click', () => {
       const id = btn.getAttribute('data-profile-id');
       const currentName = btn.getAttribute('data-profile-name') || '';
-      const newName = prompt(\`Enter new name for "\${currentName}":\`, currentName);
+      const newName = prompt(`Enter new name for "${currentName}":`, currentName);
       if (newName && newName.trim() && newName.trim() !== currentName) {
         store.renameProfile(id, newName.trim());
-        announceLiveMessage(\`Renamed profile to "\${newName.trim()}"\`);
+        announceLiveMessage(`Renamed profile to "${newName.trim()}"`);
         renderProfilesPage(container);
       }
     });
@@ -151,10 +151,10 @@ export function renderProfilesPage(container) {
     btn.addEventListener('click', () => {
       const id = btn.getAttribute('data-profile-id');
       const name = btn.getAttribute('data-profile-name');
-      if (confirm(\`Delete profile "\${name}"? Cannot be undone.\`)) {
+      if (confirm(`Delete profile "${name}"? Cannot be undone.`)) {
         try {
           store.deleteProfile(id);
-          announceLiveMessage(\`Deleted profile "\${name}"\`);
+          announceLiveMessage(`Deleted profile "${name}"`);
           renderProfilesPage(container);
         } catch (err) {
           alert(err.message);
@@ -167,7 +167,7 @@ export function renderProfilesPage(container) {
   if (posterToggle) {
     posterToggle.addEventListener('change', (e) => {
       store.setShowPosters(e.target.checked);
-      announceLiveMessage(\`Posters \${e.target.checked ? 'enabled' : 'disabled (Data Saver active)'}\`);
+      announceLiveMessage(`Posters ${e.target.checked ? 'enabled' : 'disabled (Data Saver active)'}`);
       renderProfilesPage(container);
     });
   }
@@ -176,7 +176,7 @@ export function renderProfilesPage(container) {
   if (doomsdayPrefToggle) {
     doomsdayPrefToggle.addEventListener('change', (e) => {
       store.setDoomsdayIncludeOptional(e.target.checked);
-      announceLiveMessage(\`Optional picks \${e.target.checked ? 'included' : 'excluded'}\`);
+      announceLiveMessage(`Optional picks ${e.target.checked ? 'included' : 'excluded'}`);
       renderProfilesPage(container);
     });
   }
@@ -185,7 +185,7 @@ export function renderProfilesPage(container) {
   if (exportActiveBtn) {
     exportActiveBtn.addEventListener('click', () => {
       const json = store.exportData('active');
-      downloadJsonFile(json, \`mcu-tracker-\${slugify(activeProfile.name)}-\${getTodayDateString()}.json\`);
+      downloadJsonFile(json, `mcu-tracker-${slugify(activeProfile.name)}-${getTodayDateString()}.json`);
     });
   }
 
@@ -193,7 +193,7 @@ export function renderProfilesPage(container) {
   if (exportAllBtn) {
     exportAllBtn.addEventListener('click', () => {
       const json = store.exportData('all');
-      downloadJsonFile(json, \`mcu-tracker-full-backup-\${getTodayDateString()}.json\`);
+      downloadJsonFile(json, `mcu-tracker-full-backup-${getTodayDateString()}.json`);
     });
   }
 
@@ -227,10 +227,10 @@ export function renderProfilesPage(container) {
       const mode = container.querySelector('input[name="import-mode"]:checked')?.value || 'merge';
       try {
         const res = store.importData(fileContent, mode);
-        alert(\`Imported \${res.count} profile(s)!\`);
+        alert(`Imported ${res.count} profile(s)!`);
         renderProfilesPage(container);
       } catch (err) {
-        alert(\`Import Error: \${err.message}\`);
+        alert(`Import Error: ${err.message}`);
       }
     });
   }
@@ -261,5 +261,5 @@ function downloadJsonFile(content, fileName) {
 function slugify(text) { return (text || 'user').toLowerCase().replace(/[^a-z0-9]+/g, '-'); }
 function getTodayDateString() {
   const now = new Date();
-  return \`\${now.getFullYear()}-\${String(now.getMonth()+1).padStart(2,'0')}-\${String(now.getDate()).padStart(2,'0')}\`;
+  return `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
 }

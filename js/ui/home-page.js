@@ -30,17 +30,17 @@ function getCountdownParts() {
 
 function renderProgressStrip(label, current, total, colorVar) {
   const pct = total > 0 ? Math.min(100, Math.round((current / total) * 100)) : 0;
-  return \`
+  return `
     <div class="progress-strip-item">
       <div class="progress-strip-header">
-        <span class="progress-strip-label">\${label}</span>
-        <span class="progress-strip-count">\${current} / \${total}</span>
+        <span class="progress-strip-label">${label}</span>
+        <span class="progress-strip-count">${current} / ${total}</span>
       </div>
       <div class="progress-strip-track">
-        <div class="progress-strip-fill" style="width: \${pct}%; background-color: var(\${colorVar});"></div>
+        <div class="progress-strip-fill" style="width: ${pct}%; background-color: var(${colorVar});"></div>
       </div>
     </div>
-  \`;
+  `;
 }
 
 function getBeforeDoomsdayItems(includeOptional = false, sortOrder = 'doomsday') {
@@ -84,11 +84,11 @@ function updateProgressCounts() {
   const strip = document.querySelector('.hero-progress-strip');
   if (strip) {
     const labelA = includeOptional ? 'Before Doomsday (+Optional)' : 'Before Doomsday (Official)';
-    strip.innerHTML = \`
-      \${renderProgressStrip(labelA, doomsdayWatchedCount, doomsdayTotalCount, '--gold')}
-      \${renderProgressStrip(\`Marvel (\${catalogScope.toUpperCase()})\`, marvelWatchedCount, marvelList.length, '--red')}
-      \${renderProgressStrip(\`DC (\${catalogScope.toUpperCase()})\`, dcWatchedCount, dcList.length, '--dc-blue')}
-    \`;
+    strip.innerHTML = `
+      ${renderProgressStrip(labelA, doomsdayWatchedCount, doomsdayTotalCount, '--gold')}
+      ${renderProgressStrip(`Marvel (${catalogScope.toUpperCase()})`, marvelWatchedCount, marvelList.length, '--red')}
+      ${renderProgressStrip(`DC (${catalogScope.toUpperCase()})`, dcWatchedCount, dcList.length, '--dc-blue')}
+    `;
   }
 }
 
@@ -114,7 +114,7 @@ export function renderHomePage(container) {
   const sliderBCardsHtml = filteredBItems.map((m) => renderCardHtml(m, { priority: false })).join('');
   const isGridView = prefs.filters?.view === 'grid';
 
-  const html = \`
+  const html = `
     <div class="page-home">
       <!-- Compact Hero -->
       <section class="home-hero">
@@ -124,10 +124,10 @@ export function renderHomePage(container) {
         <div class="hero-content">
           <h1 class="hero-title">AVENGERS: DOOMSDAY</h1>
           <div class="hero-countdown">
-            <div class="cd-box"><span id="cd-days" class="cd-num">\${cd.days}</span><span class="cd-label">DAYS</span></div>
-            <div class="cd-box"><span id="cd-hours" class="cd-num">\${String(cd.hours).padStart(2, '0')}</span><span class="cd-label">HRS</span></div>
-            <div class="cd-box"><span id="cd-minutes" class="cd-num">\${String(cd.minutes).padStart(2, '0')}</span><span class="cd-label">MIN</span></div>
-            <div class="cd-box"><span id="cd-seconds" class="cd-num">\${String(cd.seconds).padStart(2, '0')}</span><span class="cd-label">SEC</span></div>
+            <div class="cd-box"><span id="cd-days" class="cd-num">${cd.days}</span><span class="cd-label">DAYS</span></div>
+            <div class="cd-box"><span id="cd-hours" class="cd-num">${String(cd.hours).padStart(2, '0')}</span><span class="cd-label">HRS</span></div>
+            <div class="cd-box"><span id="cd-minutes" class="cd-num">${String(cd.minutes).padStart(2, '0')}</span><span class="cd-label">MIN</span></div>
+            <div class="cd-box"><span id="cd-seconds" class="cd-num">${String(cd.seconds).padStart(2, '0')}</span><span class="cd-label">SEC</span></div>
           </div>
         </div>
         
@@ -153,20 +153,20 @@ export function renderHomePage(container) {
         <div class="section-header">
           <h2 class="section-title">BEFORE DOOMSDAY</h2>
           <div class="section-actions doomsday-actions-bar">
-            \${includeOptional ? \`
+            ${includeOptional ? `
               <select id="select-slider-a-sort" class="form-select form-select-sm">
-                <option value="release" \${sliderASort !== 'chrono' ? 'selected' : ''}>Release Order</option>
-                <option value="chrono" \${sliderASort === 'chrono' ? 'selected' : ''}>Chronological</option>
+                <option value="release" ${sliderASort !== 'chrono' ? 'selected' : ''}>Release Order</option>
+                <option value="chrono" ${sliderASort === 'chrono' ? 'selected' : ''}>Chronological</option>
               </select>
-            \` : ''}
+            ` : ''}
             <div class="segmented-control">
-              <button type="button" class="segmented-btn \${!includeOptional ? 'is-active' : ''}" id="btn-doomsday-official">Official (15)</button>
-              <button type="button" class="segmented-btn \${includeOptional ? 'is-active' : ''}" id="btn-doomsday-optional">+ Optional</button>
+              <button type="button" class="segmented-btn ${!includeOptional ? 'is-active' : ''}" id="btn-doomsday-official">Official (15)</button>
+              <button type="button" class="segmented-btn ${includeOptional ? 'is-active' : ''}" id="btn-doomsday-optional">+ Optional</button>
             </div>
           </div>
         </div>
         <div id="slider-a-container">
-          \${renderSliderHtml({ id: 'slider-a', cardsHtml: sliderACardsHtml, isGrid: false })}
+          ${renderSliderHtml({ id: 'slider-a', cardsHtml: sliderACardsHtml, isGrid: false })}
         </div>
       </section>
 
@@ -176,17 +176,17 @@ export function renderHomePage(container) {
           <h2 class="section-title">COMPLETE CATALOG</h2>
         </div>
         <div id="home-filter-controls" class="filter-sticky-bar">
-          \${renderFiltersHtml(prefs.filters, moviesInScope.length, filteredBItems.length, { showViewToggle: true })}
+          ${renderFiltersHtml(prefs.filters, moviesInScope.length, filteredBItems.length, { showViewToggle: true })}
         </div>
         <div id="slider-b-container">
-          \${filteredBItems.length > 0
+          ${filteredBItems.length > 0
             ? renderSliderHtml({ id: 'slider-b', cardsHtml: sliderBCardsHtml, isGrid: isGridView })
-            : \`<div class="empty-state">No titles match your filter criteria.<br><button id="btn-empty-reset-filters" class="btn btn-primary">Reset Filters</button></div>\`
+            : `<div class="empty-state">No titles match your filter criteria.<br><button id="btn-empty-reset-filters" class="btn btn-primary">Reset Filters</button></div>`
           }
         </div>
       </section>
     </div>
-  \`;
+  `;
 
   container.innerHTML = html;
   

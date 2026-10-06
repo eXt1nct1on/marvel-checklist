@@ -78,17 +78,17 @@ export function initSlider(wrapper, options = {}) {
 
 export function renderSliderHtml({ id, label, cardsHtml, isGrid = false }) {
   if (isGrid) {
-    return \`
-      <div id="\${id}-wrapper" role="region" aria-label="\${label}">
-        <div class="grid-container" id="\${id}-track" tabindex="0" role="group">
-          \${cardsHtml.replace(/class="movie-card"/g, 'class="movie-card grid-item"')}
+    return `
+      <div id="${id}-wrapper" role="region" aria-label="${label}">
+        <div class="grid-container" id="${id}-track" tabindex="0" role="group">
+          ${cardsHtml.replace(/class="movie-card"/g, 'class="movie-card grid-item"')}
         </div>
       </div>
-    \`;
+    `;
   }
 
-  return \`
-    <div id="\${id}-wrapper" role="region" aria-label="\${label}" style="position: relative;">
+  return `
+    <div id="${id}-wrapper" role="region" aria-label="${label}" style="position: relative;">
       <div style="display:flex; justify-content: flex-end; gap: 8px; margin-bottom: 8px;">
         <button type="button" class="btn btn-sm slider-nav-prev" aria-label="Previous items" title="Scroll Left">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -97,10 +97,10 @@ export function renderSliderHtml({ id, label, cardsHtml, isGrid = false }) {
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </button>
       </div>
-      <div class="rail-container" id="\${id}-track" tabindex="0" role="group" aria-label="\${label} list">
+      <div class="rail-container" id="${id}-track" tabindex="0" role="group" aria-label="${label} list">
         <!-- Wrap cards in rail-item -->
-        \${cardsHtml.replace(/<article/g, '<div class="rail-item"><article').replace(/<\\/article>/g, '</article></div>')}
+        ${cardsHtml.replace(/<article/g, '<div class="rail-item"><article').replace(/<\/article>/g, '</article></div>')}
       </div>
     </div>
-  \`;
+  `;
 }
