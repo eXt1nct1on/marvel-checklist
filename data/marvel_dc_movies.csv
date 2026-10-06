@@ -1,0 +1,79 @@
+Universe,Franchise,Type,Title,Release,Phase_Era,Watch_Before_Doomsday,Watch_Order,Notes
+Marvel,MCU,Movie,Iron Man,2008,Phase 1,Optional (my pick),,Tony Stark origin; RDJ returns in Doomsday
+Marvel,MCU,Movie,The Incredible Hulk,2008,Phase 1,No,,
+Marvel,MCU,Movie,Iron Man 2,2010,Phase 1,No,,
+Marvel,MCU,Movie,Thor,2011,Phase 1,No,,
+Marvel,MCU,Movie,Captain America: The First Avenger,2011,Phase 1,Yes (Official),3,Official Disney+ list
+Marvel,MCU,Movie,The Avengers,2012,Phase 1,Yes (Official),4,Official Disney+ list
+Marvel,MCU,Movie,Iron Man 3,2013,Phase 2,No,,
+Marvel,MCU,Movie,Thor: The Dark World,2013,Phase 2,No,,
+Marvel,MCU,Movie,Captain America: The Winter Soldier,2014,Phase 2,Optional (my pick),,Bucky and Sam Wilson backstory
+Marvel,MCU,Movie,Guardians of the Galaxy,2014,Phase 2,No,,
+Marvel,MCU,Movie,Avengers: Age of Ultron,2015,Phase 2,No,,
+Marvel,MCU,Movie,Ant-Man,2015,Phase 2,No,,
+Marvel,MCU,Movie,Captain America: Civil War,2016,Phase 3,No,,
+Marvel,MCU,Movie,Doctor Strange,2016,Phase 3,No,,
+Marvel,MCU,Movie,Guardians of the Galaxy Vol. 2,2017,Phase 3,No,,
+Marvel,MCU,Movie,Spider-Man: Homecoming,2017,Phase 3,No,,
+Marvel,MCU,Movie,Thor: Ragnarok,2017,Phase 3,Optional (my pick),,Thor and Loki in Doomsday cast
+Marvel,MCU,Movie,Black Panther,2018,Phase 3,Optional (my pick),,Wakanda / M'Baku; pairs with Wakanda Forever
+Marvel,MCU,Movie,Avengers: Infinity War,2018,Phase 3,Yes (Official),5,Official Disney+ list
+Marvel,MCU,Movie,Ant-Man and the Wasp,2018,Phase 3,No,,
+Marvel,MCU,Movie,Captain Marvel,2019,Phase 3,No,,
+Marvel,MCU,Movie,Avengers: Endgame,2019,Phase 3,Yes (Official),6,Official Disney+ list
+Marvel,MCU,Movie,Spider-Man: Far From Home,2019,Phase 3,No,,
+Marvel,MCU,Movie,Black Widow,2021,Phase 4,Optional (my pick),,Introduces Yelena Belova and Red Guardian (both in Doomsday cast)
+Marvel,MCU,Movie,Shang-Chi and the Legend of the Ten Rings,2021,Phase 4,Yes (Official),8,Official Disney+ list
+Marvel,MCU,Movie,Eternals,2021,Phase 4,No,,
+Marvel,MCU,Movie,Spider-Man: No Way Home,2021,Phase 4,Yes (Official),9,Official Disney+ list; multiverse setup
+Marvel,MCU,Movie,Doctor Strange in the Multiverse of Madness,2022,Phase 4,Yes (Official),11,Official Disney+ list
+Marvel,MCU,Movie,Thor: Love and Thunder,2022,Phase 4,No,,
+Marvel,MCU,Movie,Black Panther: Wakanda Forever,2022,Phase 4,Yes (Official),10,Official Disney+ list; introduces Namor (Tenoch Huerta)
+Marvel,MCU,Movie,Ant-Man and the Wasp: Quantumania,2023,Phase 5,Optional (my pick),,Quantum Realm / Kang multiverse background
+Marvel,MCU,Movie,Guardians of the Galaxy Vol. 3,2023,Phase 5,No,,
+Marvel,MCU,Movie,The Marvels,2023,Phase 5,No,,
+Marvel,MCU,Movie,Deadpool & Wolverine,2024,Phase 5,Yes (Official),12,Official Disney+ list
+Marvel,MCU,Movie,Captain America: Brave New World,2025,Phase 5,Yes (Official),13,Official Disney+ list
+Marvel,MCU,Movie,Thunderbolts*,2025,Phase 6,Yes (Official),14,Official Disney+ list
+Marvel,MCU,Movie,The Fantastic Four: First Steps,2025,Phase 6,Yes (Official),15,Official Disney+ list
+Marvel,MCU,Movie,Spider-Man: Brand New Day,2026-07-31,Phase 6,Optional (my pick),,Not on Disney+ list; Spider-Man's Doomsday role not confirmed
+Marvel,MCU,TV Series,Loki (Seasons 1-2),2021-2023,Phase 4-5,Yes (Official),7,Official Disney+ list; only TV entry (included for completeness)
+Marvel,MCU,Movie,Avengers: Doomsday,2026-12-18,Phase 6,N/A,,The target film; release date per Disney/Marvel
+Marvel,MCU,Movie,Avengers: Secret Wars,2027-12,Phase 6,N/A,,Upcoming; after Doomsday
+Marvel,Fox X-Men (non-MCU),Movie,X-Men,2000,Fox X-Men,Yes (Official),1,Official Disney+ list
+Marvel,Fox X-Men (non-MCU),Movie,X2: X-Men United,2003,Fox X-Men,Yes (Official),2,Official Disney+ list
+Marvel,Fox X-Men (non-MCU),Movie,X-Men: The Last Stand,2006,Fox X-Men,No,,
+Marvel,Fox X-Men (non-MCU),Movie,X-Men Origins: Wolverine,2009,Fox X-Men,No,,
+Marvel,Fox X-Men (non-MCU),Movie,X-Men: First Class,2011,Fox X-Men,No,,
+Marvel,Fox X-Men (non-MCU),Movie,The Wolverine,2013,Fox X-Men,No,,
+Marvel,Fox X-Men (non-MCU),Movie,X-Men: Days of Future Past,2014,Fox X-Men,No,,
+Marvel,Fox X-Men (non-MCU),Movie,Deadpool,2016,Fox X-Men,Optional (my pick),,Context for Deadpool & Wolverine
+Marvel,Fox X-Men (non-MCU),Movie,X-Men: Apocalypse,2016,Fox X-Men,No,,
+Marvel,Fox X-Men (non-MCU),Movie,Logan,2017,Fox X-Men,Optional (my pick),,Context for Deadpool & Wolverine
+Marvel,Fox X-Men (non-MCU),Movie,Deadpool 2,2018,Fox X-Men,Optional (my pick),,Context for Deadpool & Wolverine
+Marvel,Fox X-Men (non-MCU),Movie,Dark Phoenix,2019,Fox X-Men,No,,
+Marvel,Fox X-Men (non-MCU),Movie,The New Mutants,2020,Fox X-Men,No,,
+DC,DCEU (Snyderverse era),Movie,Man of Steel,2013,DCEU,N/A,,
+DC,DCEU (Snyderverse era),Movie,Batman v Superman: Dawn of Justice,2016,DCEU,N/A,,
+DC,DCEU (Snyderverse era),Movie,Suicide Squad,2016,DCEU,N/A,,
+DC,DCEU (Snyderverse era),Movie,Wonder Woman,2017,DCEU,N/A,,
+DC,DCEU (Snyderverse era),Movie,Justice League,2017,DCEU,N/A,,
+DC,DCEU (Snyderverse era),Movie,Aquaman,2018,DCEU,N/A,,
+DC,DCEU (Snyderverse era),Movie,Shazam!,2019,DCEU,N/A,,
+DC,DCEU (Snyderverse era),Movie,Birds of Prey,2020,DCEU,N/A,,
+DC,DCEU (Snyderverse era),Movie,Wonder Woman 1984,2020,DCEU,N/A,,
+DC,DCEU (Snyderverse era),Movie,Zack Snyder's Justice League,2021,DCEU,N/A,,
+DC,DCEU (Snyderverse era),Movie,The Suicide Squad,2021,DCEU,N/A,,
+DC,DCEU (Snyderverse era),Movie,Black Adam,2022,DCEU,N/A,,
+DC,DCEU (Snyderverse era),Movie,Shazam! Fury of the Gods,2023,DCEU,N/A,,
+DC,DCEU (Snyderverse era),Movie,The Flash,2023,DCEU,N/A,,
+DC,DCEU (Snyderverse era),Movie,Blue Beetle,2023,DCEU,N/A,,
+DC,DCEU (Snyderverse era),Movie,Aquaman and the Lost Kingdom,2023,DCEU,N/A,,
+DC,Elseworlds,Movie,Joker,2019,Elseworlds,N/A,,
+DC,Elseworlds,Movie,The Batman,2022,Elseworlds,N/A,,
+DC,Elseworlds,Movie,Joker: Folie à Deux,2024,Elseworlds,N/A,,
+DC,Elseworlds,Movie,The Batman Part II,2027-10-01,Elseworlds,N/A,,Upcoming
+DC,DCU (Chapter One),Movie,Superman,2025,DCU,N/A,,
+DC,DCU (Chapter One),Movie,Supergirl,2026-06-26,DCU,N/A,,Date per announced schedule
+DC,DCU (Chapter One),Movie,Clayface,2026-09-11,DCU,N/A,,Date per announced schedule
+DC,DCU (Chapter One),Movie,Man of Tomorrow,2027-07-09,DCU,N/A,,Upcoming
