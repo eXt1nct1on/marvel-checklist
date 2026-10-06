@@ -1,5 +1,5 @@
 import { BG_CONFIG } from './bg-config.js';
-import { getStore } from './store.js';
+import { store } from './store.js';
 
 let player = null;
 let apiLoaded = false;
@@ -19,8 +19,7 @@ function shouldLoadVideo() {
   if (window.innerWidth < 720) return false;
   
   // User prefs
-  const store = getStore();
-  const profile = store.getCurrentProfile();
+  const profile = store.getActiveProfile();
   
   // Default logic matching the request (ON for desktop, OFF for mobile)
   // Our desktop check is above (innerWidth < 720 returns false early)
@@ -174,8 +173,7 @@ function updateVideoLayerOpacity() {
   const layer = document.getElementById('bg-video-layer');
   if (!layer) return;
   
-  const store = getStore();
-  const profile = store.getCurrentProfile();
+  const profile = store.getActiveProfile();
   const theme = document.documentElement.getAttribute('data-theme') || 'dark';
   
   let opacity = 0.20; // dark default
