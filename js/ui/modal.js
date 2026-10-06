@@ -37,20 +37,25 @@ export function openMovieModal(movie, onStateChange = null) {
   let posterHtml = '';
   if (posterEntry && posterEntry.posterPath) {
     posterHtml = `
-      <img
-        src="https://image.tmdb.org/t/p/w500${posterEntry.posterPath}"
-        alt="Poster for ${escapeHtml(movie.title)}"
-        class="modal-poster"
-        loading="eager"
-        decoding="async"
-        referrerpolicy="no-referrer"
-      />
+      <div class="modal-poster-col">
+        <img
+          src="https://image.tmdb.org/t/p/w500${posterEntry.posterPath}"
+          alt="Poster for ${escapeHtml(movie.title)}"
+          class="modal-poster"
+          loading="eager"
+          decoding="async"
+          referrerpolicy="no-referrer"
+        />
+      </div>
     `;
   } else {
     const monogram = movie.title.split(' ').map(w => w[0]).join('').substring(0, 3).toUpperCase();
+    const bg = isMarvel ? '--red' : '--dc-blue';
     posterHtml = `
-      <div class="modal-poster card-placeholder" style="background-color: var(${isMarvel ? '--red' : '--dc-blue'});">
-        ${escapeHtml(monogram)}
+      <div class="modal-poster-col">
+        <div class="modal-poster-placeholder" style="background-color:var(${bg})">
+          ${escapeHtml(monogram)}
+        </div>
       </div>
     `;
   }

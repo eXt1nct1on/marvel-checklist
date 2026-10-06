@@ -1,7 +1,8 @@
 /**
- * MCU & DC Tracker - Card Component
- * Flat, comic-book editorial redesign.
- * Targeted updates via store.subscribe.
+ * MCU & DC Tracker — Card Component
+ * All class names match css/style.css exactly.
+ * Square by default; poster shape via .card-shape-poster on the card.
+ * Targeted DOM updates via store.subscribe (no full re-render on toggle).
  */
 
 import { store } from '../store.js';
@@ -10,24 +11,9 @@ import { POSTERS } from '../posters.js';
 import { openMovieModal } from './modal.js';
 
 const failedPosters = new Set();
-let observer = null;
+let _observer = null;
 
-export function formatReleaseDisplay(release) {
-  if (!release) return 'TBA';
-  if (/^\d{4}$/.test(release)) return release;
-  if (/^\d{4}-\d{2}$/.test(release)) {
-    const [y, m] = release.split('-');
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    return `${months[parseInt(m, 10) - 1]} ${y}`;
-  }
-  if (/^\d{4}-\d{2}-\d{2}$/.test(release)) {
-    const [y, m, d] = release.split('-');
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    return `${months[parseInt(m, 10) - 1]} ${parseInt(d, 10)}, ${y}`;
-  }
-  return release;
-}
-
+/* ─── Helpers ─────────────────────────────────────── */
 export function escapeHtml(str) {
   if (!str) return '';
   return String(str)
@@ -50,199 +36,216 @@ export function announceLiveMessage(message) {
   el.textContent = message;
 }
 
-export function renderCardHtml(movie, options = {}) {
-  const isWatched = store.isWatched(movie.id, movie.seasons);
-  const watchedSeasons = store.getWatchedSeasons(movie.id);
-  const isPartiallyWatched = !isWatched && watchedSeasons.length > 0;
-  const isUpcoming = Boolean(movie.upcoming);
-
-  // Determine priority for posters
-  const isPriority = options.priority === true;
-  const loadingAttr = isPriority ? 'eager' : 'lazy';
-  const fetchPriorityAttr = isPriority ? 'fetchpriority="high"' : '';
-
-  const badges = [];
-  const isMarvel = movie.universe === 'Marvel';
-  badges.push(`<span class="badge ${isMarvel ? 'badge-marvel' : 'badge-dc'}">${escapeHtml(movie.universe)}</span>`);
-  
-  if (movie.type === 'TV Series') {
-    badges.push(`<span class="badge badge-tv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg> ${movie.seasons || 1} Seasons</span>`);
-  } else if (movie.type === 'Special' || movie.type === 'Short') {
-    badges.push(`<span class="badge">${escapeHtml(movie.type)}</span>`);
-  } else {
-    badges.push(`<span class="badge badge-movie"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg> Movie</span>`);
+export function formatReleaseDisplay(release) {
+  if (!release) return 'TBA';
+  if (/^\d{4}$/.test(release)) return release;
+  if (/^\d{4}-\d{2}$/.test(release)) {
+    const [y, m] = release.split('-');
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return `${months[parseInt(m,10)-1]} ${y}`;
   }
+  if (/^\d{4}-\d{2}-\d{2}$/.test(release)) {
+    const [y, m, d] = release.split('-');
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return `${months[parseInt(m,10)-1]} ${parseInt(d,10)}, ${y}`;
+  }
+  return release;
+}
 
-  if (isUpcoming) badges.push(`<span class="badge badge-upcoming">Upcoming</span>`);
-  if (movie.doomsday === 'optional') badges.push(`<span class="badge badge-optional">Optional</span>`);
+/* ─── Card HTML ───────────────────────────────────── */
+export function renderCardHtml(movie, options = {}) {
+  const isWatched  = store.isWatched(movie.id, movie.seasons);
+  const watchedSeasons = store.getWatchedSeasons(movie.id);
+  const isPartial  = !isWatched && watchedSeasons.length > 0;
+  const isMarvel   = movie.universe === 'Marvel';
+  const isUpcoming = Boolean(movie.upcoming);
+  const isOptional = movie.doomsday === 'optional';
 
+  // Card shape preference
+  const cardShape = store.getPrefs().cardShape || 'square';
+  const shapeClass = cardShape === 'poster' ? 'card-shape-poster' : '';
+
+  // Priority
+  const isPriority = options.priority === true;
+  const loading = isPriority ? 'eager' : 'lazy';
+  const fetchpriority = isPriority ? 'fetchpriority="high"' : '';
+
+  // Poster
   const showPosters = store.getShowPosters();
   const posterEntry = showPosters ? POSTERS[movie.id] : null;
-  const hasValidPoster = Boolean(posterEntry && posterEntry.posterPath && !failedPosters.has(movie.id));
+  const hasPoster   = Boolean(posterEntry?.posterPath && !failedPosters.has(movie.id));
 
-  let posterMarkup = '';
-  if (hasValidPoster) {
-    const posterPath = posterEntry.posterPath;
-    posterMarkup = `
+  let mediaHtml = '';
+  if (hasPoster) {
+    const p = posterEntry.posterPath;
+    mediaHtml = `
       <img
-        data-src="https://image.tmdb.org/t/p/w342${posterPath}"
-        data-srcset="https://image.tmdb.org/t/p/w185${posterPath} 185w, https://image.tmdb.org/t/p/w342${posterPath} 342w, https://image.tmdb.org/t/p/w500${posterPath} 500w"
-        sizes="(max-width: 480px) 185px, (max-width: 1024px) 342px, 500px"
-        alt="Poster for ${escapeHtml(movie.title)}"
         class="card-poster lazy-poster"
-        loading="${loadingAttr}"
-        ${fetchPriorityAttr}
+        data-src="https://image.tmdb.org/t/p/w342${p}"
+        data-srcset="https://image.tmdb.org/t/p/w185${p} 185w, https://image.tmdb.org/t/p/w342${p} 342w, https://image.tmdb.org/t/p/w500${p} 500w"
+        sizes="(max-width:480px) 185px,(max-width:1024px) 342px,500px"
+        alt="Poster for ${escapeHtml(movie.title)}"
+        loading="${loading}" ${fetchpriority}
         decoding="async"
         referrerpolicy="no-referrer"
         data-movie-id="${escapeHtml(movie.id)}"
-        width="342"
-        height="513"
+        width="342" height="513"
       />
     `;
   } else {
-    // Flat background placeholder
-    const monogram = movie.title.split(' ').map(w => w[0]).join('').substring(0, 3).toUpperCase();
-    posterMarkup = `
-      <div class="card-poster-placeholder" style="background-color: var(${isMarvel ? '--red' : '--dc-blue'});">
-        <span class="placeholder-text">${escapeHtml(monogram)}</span>
+    const mono = movie.title.split(' ').map(w => w[0]).join('').substring(0,3).toUpperCase();
+    const bg   = isMarvel ? '--red' : '--dc-blue';
+    mediaHtml = `
+      <div class="card-poster-placeholder" style="background-color:var(${bg})">
+        ${escapeHtml(mono)}
       </div>
     `;
   }
 
-  const btnLabel = isWatched ? 'Watched' : isPartiallyWatched ? `${watchedSeasons.length}/${movie.seasons} Watched` : 'Mark Watched';
+  // Badges — max 2, priority: Optional > Series > Upcoming > Universe
+  const badges = [];
+  if (isOptional)              badges.push(`<span class="badge badge-optional">OPT</span>`);
+  if (movie.type==='TV Series') badges.push(`<span class="badge badge-tv">SERIES</span>`);
+  if (isUpcoming && badges.length < 2) badges.push(`<span class="badge badge-upcoming">SOON</span>`);
+  if (badges.length < 2)       badges.push(`<span class="badge ${isMarvel ? 'badge-marvel':'badge-dc'}">${escapeHtml(movie.universe)}</span>`);
+  const badgesHtml = badges.slice(0,2).join('');
+
+  const year = movie.release ? movie.release.substring(0,4) : 'TBA';
+  const typeLabel = movie.type === 'TV Series' ? 'Series' : 'Movie';
+  const btnLabel = isWatched ? 'WATCHED' : isPartial ? `${watchedSeasons.length}/${movie.seasons} WATCHED` : 'MARK WATCHED';
 
   return `
-    <article 
-      class="movie-card ${isWatched ? 'is-watched' : ''} ${isMarvel ? 'card-marvel' : 'card-dc'}" 
+    <article
+      class="movie-card ${shapeClass} ${isWatched ? 'is-watched' : ''} ${isMarvel ? 'card-marvel' : 'card-dc'} ${isOptional ? 'is-optional' : ''}"
       data-id="${escapeHtml(movie.id)}"
       id="card-${escapeHtml(movie.id)}"
       tabindex="0"
     >
       <div class="card-stripe"></div>
       <div class="card-poster-wrapper">
-        ${posterMarkup}
-        <div class="card-badges">${badges.join('')}</div>
+        ${mediaHtml}
+        <div class="card-badges">${badgesHtml}</div>
       </div>
       <div class="card-content">
         <h3 class="card-title">${escapeHtml(movie.title)}</h3>
-        <p class="card-meta">${escapeHtml(formatReleaseDisplay(movie.release))}</p>
-        
-        <button
-          type="button"
-          class="btn-watch-toggle"
-          data-movie-id="${escapeHtml(movie.id)}"
-          data-total-seasons="${movie.seasons || ''}"
-          role="checkbox"
-          aria-checked="${isWatched}"
-        >
-          <span class="watch-checkbox"></span>
-          <span class="watch-label" data-unwatched-label="Mark Watched" data-watched-label="Watched">${btnLabel}</span>
-        </button>
+        <p class="card-meta">${year} · ${typeLabel}</p>
       </div>
+      <button
+        type="button"
+        class="btn-watch-toggle"
+        data-movie-id="${escapeHtml(movie.id)}"
+        data-total-seasons="${movie.seasons || ''}"
+        role="checkbox"
+        aria-checked="${isWatched}"
+        aria-label="${isWatched ? 'Unmark' : 'Mark'} ${escapeHtml(movie.title)} as watched"
+      >
+        <span class="watch-checkbox"></span>
+        <span class="watch-label">${btnLabel}</span>
+      </button>
     </article>
   `;
 }
 
-function initIntersectionObserver() {
-  if (observer) return;
-  observer = new IntersectionObserver((entries, obs) => {
+/* ─── Intersection Observer for lazy posters ─────── */
+function initObserver() {
+  if (_observer) return;
+  _observer = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const img = entry.target;
-        if (img.dataset.src) {
-          img.src = img.dataset.src;
-          if (img.dataset.srcset) img.srcset = img.dataset.srcset;
-          img.removeAttribute('data-src');
-          img.removeAttribute('data-srcset');
-        }
-        obs.unobserve(img);
+      if (!entry.isIntersecting) return;
+      const img = entry.target;
+      if (img.dataset.src) {
+        img.src = img.dataset.src;
+        if (img.dataset.srcset) img.srcset = img.dataset.srcset;
+        img.removeAttribute('data-src');
+        img.removeAttribute('data-srcset');
       }
+      obs.unobserve(img);
     });
   }, { rootMargin: '600px 0px' });
 }
 
 export function observeLazyPosters(container) {
-  initIntersectionObserver();
-  const lazyImages = container.querySelectorAll('.lazy-poster[data-src]');
-  lazyImages.forEach(img => observer.observe(img));
+  initObserver();
+  container.querySelectorAll('.lazy-poster[data-src]').forEach(img => _observer.observe(img));
 }
 
+/* ─── Card interaction listeners ─────────────────── */
 export function attachCardListeners(container) {
   if (!container) return;
 
-  if (!container._posterHandlersAttached) {
-    container.addEventListener('error', (e) => {
-      if (e.target && e.target.classList && e.target.classList.contains('card-poster')) {
-        const movieId = e.target.getAttribute('data-movie-id');
-        if (movieId) {
-          failedPosters.add(movieId);
-          const wrapper = e.target.closest('.card-poster-wrapper');
-          if (wrapper) {
-            const isMarvel = wrapper.closest('.movie-card').classList.contains('card-marvel');
-            const title = wrapper.closest('.movie-card').querySelector('.card-title').textContent;
-            const monogram = title.split(' ').map(w => w[0]).join('').substring(0, 3).toUpperCase();
-            wrapper.innerHTML = `
-              <div class="card-poster-placeholder" style="background-color: var(${isMarvel ? '--red' : '--dc-blue'});">
-                <span class="placeholder-text">${escapeHtml(monogram)}</span>
-              </div>
-              ${wrapper.querySelector('.card-badges').outerHTML}
-            `;
-          }
-        }
-      }
+  // Poster error fallback (delegated, once per container)
+  if (!container._posterErrAttached) {
+    container.addEventListener('error', e => {
+      const img = e.target;
+      if (!img.classList?.contains('card-poster')) return;
+      const movieId = img.getAttribute('data-movie-id');
+      if (!movieId) return;
+      failedPosters.add(movieId);
+      const card = img.closest('.movie-card');
+      const wrap = img.closest('.card-poster-wrapper');
+      if (!wrap || !card) return;
+      const isMarvel = card.classList.contains('card-marvel');
+      const mono = (card.querySelector('.card-title')?.textContent || '').split(' ').map(w=>w[0]).join('').substring(0,3).toUpperCase();
+      const bg   = isMarvel ? '--red' : '--dc-blue';
+      const badgesEl = wrap.querySelector('.card-badges');
+      wrap.innerHTML = `
+        <div class="card-poster-placeholder" style="background-color:var(${bg})">${escapeHtml(mono)}</div>
+        ${badgesEl ? badgesEl.outerHTML : ''}
+      `;
     }, true);
-    container._posterHandlersAttached = true;
+    container._posterErrAttached = true;
   }
 
-  container.addEventListener('click', (e) => {
-    const watchBtn = e.target.closest('.btn-watch-toggle');
-    if (watchBtn) {
-      e.preventDefault();
-      e.stopPropagation();
-      const movieId = watchBtn.getAttribute('data-movie-id');
-      const totalSeasons = parseInt(watchBtn.getAttribute('data-total-seasons'), 10) || null;
-      if (movieId) {
-        store.toggleWatched(movieId, null, totalSeasons);
+  // Click: watch toggle vs card open (delegated)
+  if (!container._clickAttached) {
+    container.addEventListener('click', e => {
+      // Watch toggle
+      const watchBtn = e.target.closest('.btn-watch-toggle');
+      if (watchBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        const movieId = watchBtn.getAttribute('data-movie-id');
+        const seasons = parseInt(watchBtn.getAttribute('data-total-seasons'), 10) || null;
+        if (movieId) store.toggleWatched(movieId, null, seasons);
+        return;
       }
-      return;
-    }
-
-    const card = e.target.closest('.movie-card');
-    if (card) {
-      const movieId = card.getAttribute('data-id');
-      if (movieId) {
-        const movie = MOVIES.find((m) => m.id === movieId);
-        if (movie) openMovieModal(movie, null);
+      // Open modal (click on media or title, NOT footer)
+      const card = e.target.closest('.movie-card');
+      if (card && !e.target.closest('.btn-watch-toggle')) {
+        const movieId = card.getAttribute('data-id');
+        if (movieId) {
+          const movie = MOVIES.find(m => m.id === movieId);
+          if (movie) openMovieModal(movie, null);
+        }
       }
-    }
-  });
+    });
+    container._clickAttached = true;
+  }
 }
 
-// Targeted DOM Updates
+/* ─── Targeted DOM updates on watched state change ── */
 store.subscribe(() => {
-  // Update all rendered cards
-  const cards = document.querySelectorAll('.movie-card');
-  cards.forEach(card => {
+  document.querySelectorAll('.movie-card').forEach(card => {
     const id = card.getAttribute('data-id');
     const movie = MOVIES.find(m => m.id === id);
     if (!movie) return;
 
     const isWatched = store.isWatched(id, movie.seasons);
     const watchedSeasons = store.getWatchedSeasons(id);
-    const isPartiallyWatched = !isWatched && watchedSeasons.length > 0;
+    const isPartial = !isWatched && watchedSeasons.length > 0;
 
-    if (isWatched) {
-      card.classList.add('is-watched');
-    } else {
-      card.classList.remove('is-watched');
-    }
-    
+    card.classList.toggle('is-watched', isWatched);
+
     const btn = card.querySelector('.btn-watch-toggle');
     if (btn) {
-      btn.setAttribute('aria-checked', isWatched);
+      btn.setAttribute('aria-checked', String(isWatched));
       const labelEl = btn.querySelector('.watch-label');
       if (labelEl) {
-        labelEl.textContent = isWatched ? 'Watched' : isPartiallyWatched ? `${watchedSeasons.length}/${movie.seasons} Watched` : 'Mark Watched';
+        labelEl.textContent = isWatched
+          ? 'WATCHED'
+          : isPartial
+            ? `${watchedSeasons.length}/${movie.seasons} WATCHED`
+            : 'MARK WATCHED';
       }
     }
   });

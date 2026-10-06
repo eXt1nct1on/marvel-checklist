@@ -79,23 +79,23 @@ export function renderProgressPage(container) {
           <div class="progress-item">
             <div class="progress-item-header">
               <span class="progress-item-title">Total</span>
-              <span class="progress-item-val">${watchedInScope} <span style="font-size: 14px; color: var(--muted)">/ ${totalCount}</span></span>
+              <span class="progress-item-val">${watchedInScope}<span class="progress-item-pct"> / ${totalCount}</span></span>
             </div>
-            <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width: ${overallPct}%; background-color: var(--text)"></div></div>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill fill-text" style="width:${overallPct}%"></div></div>
           </div>
           <div class="progress-item">
             <div class="progress-item-header">
               <span class="progress-item-title">Marvel</span>
-              <span class="progress-item-val">${marvelWatched} <span style="font-size: 14px; color: var(--muted)">/ ${marvelList.length}</span></span>
+              <span class="progress-item-val">${marvelWatched}<span class="progress-item-pct"> / ${marvelList.length}</span></span>
             </div>
-            <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width: ${marvelPct}%"></div></div>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${marvelPct}%"></div></div>
           </div>
           <div class="progress-item">
             <div class="progress-item-header">
               <span class="progress-item-title">DC</span>
-              <span class="progress-item-val">${dcWatched} <span style="font-size: 14px; color: var(--muted)">/ ${dcList.length}</span></span>
+              <span class="progress-item-val">${dcWatched}<span class="progress-item-pct"> / ${dcList.length}</span></span>
             </div>
-            <div class="progress-bar-wrap"><div class="progress-bar-fill dc-fill" style="width: ${dcPct}%"></div></div>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill fill-dc" style="width:${dcPct}%"></div></div>
           </div>
         </div>
 
@@ -107,27 +107,33 @@ export function renderProgressPage(container) {
               <button class="btn btn-sm ${doomsdayIncludeOptional ? 'btn-primary' : ''}" id="progress-doomsday-optional">+ Optional</button>
             </div>
           </div>
-          <div class="progress-bar-wrap"><div class="progress-bar-fill" style="background-color: var(--gold-fill); width: ${doomsdayPct}%"></div></div>
+          <div class="progress-bar-wrap"><div class="progress-bar-fill fill-gold" style="width: ${doomsdayPct}%"></div></div>
         </div>
       </section>
 
       <section class="section-container">
-        <div class="section-header">
-          <h2 class="section-title">ACTIVE QUEUE</h2>
+        <div class="section-hd">
+          <div class="section-hd-left">
+            <h2 class="section-title">ACTIVE QUEUE</h2>
+          </div>
         </div>
         ${renderUpNextContent(upNextState)}
       </section>
 
       <section class="section-container">
-        <div class="section-header">
-          <h2 class="section-title">WATCHED HISTORY (${watchedMovies.length})</h2>
+        <div class="section-hd">
+          <div class="section-hd-left">
+            <h2 class="section-title">WATCHED HISTORY (${watchedMovies.length})</h2>
+          </div>
         </div>
         ${renderWatchedList(watchedMovies)}
       </section>
 
       <section class="section-container">
-        <div class="section-header">
-          <h2 class="section-title">UNWATCHED BACKLOG (${unwatchedList.length})</h2>
+        <div class="section-hd">
+          <div class="section-hd-left">
+            <h2 class="section-title">UNWATCHED BACKLOG (${unwatchedList.length})</h2>
+          </div>
         </div>
         <div id="unwatched-filter-controls" style="margin-bottom: 24px;">
           ${renderFiltersHtml(prefs.filters, unwatchedList.length, unwatchedFiltered.length, { showViewToggle: false })}
