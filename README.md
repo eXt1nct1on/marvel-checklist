@@ -1,8 +1,8 @@
 # Multiverse Tracker: Marvel & DC Movie & Series Checklist
 
-[![Pages Deploy Status](https://github.com/<owner>/<repo>/actions/workflows/deploy.yml/badge.svg)](https://github.com/<owner>/<repo>/actions/workflows/deploy.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Pages Deploy Status](https://github.com/eXt1nct1on/marvel-checklist/actions/workflows/deploy.yml/badge.svg)](https://github.com/eXt1nct1on/marvel-checklist/actions/workflows/deploy.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-**Live Site:** [https://<owner>.github.io/<repo>/](https://<owner>.github.io/<repo>/)
+**Live Site:** [https://ext1nct1on.github.io/marvel-checklist/](https://ext1nct1on.github.io/marvel-checklist/)
 
 A fast, production-ready, zero-dependency Marvel and DC movie & series tracker website built for static hosting on GitHub Pages. Features 199 comprehensively curated titles, chronological in-universe roadmaps, multi-season TV tracking, a live countdown to *Avengers: Doomsday* (December 18, 2026), multi-profile offline browser storage, and procedural SVG artwork.
 
