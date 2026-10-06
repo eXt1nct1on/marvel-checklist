@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ultimate Marvel and DC movie and TV series checklist tracker. Curated watch orders, live countdown to Avengers: Doomsday, multi-profile offline browser storage.">
+  <meta name="theme-color" content="#0b0f19">
+  <title>Multiverse Checklist - Marvel & DC Tracker</title>
+
+  <!-- Open Graph / Social -->
+  <meta property="og:title" content="Multiverse Checklist - Marvel & DC Tracker">
+  <meta property="og:description" content="Ultimate Marvel and DC movie and TV series checklist tracker. Curated watch orders, live countdown to Avengers: Doomsday, multi-profile offline browser storage.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Favicon (Inline SVG) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>dYZ</text></svg>">
+
+  <!-- Self-contained stylesheet (relative path for sub-folder GitHub Pages hosting) -->
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <!-- Screen reader live region for instant accessible announcements -->
+  <div id="aria-live-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- First-time Visitor Welcome Banner -->
+  <aside id="welcome-banner" class="welcome-banner" hidden role="dialog" aria-labelledby="welcome-banner-title">
+    <div class="welcome-banner-inner">
+      <div class="welcome-banner-text">
+        <h2 id="welcome-banner-title" class="welcome-banner-title">Welcome to Multiverse Tracker!</h2>
+        <p class="welcome-banner-desc">Your personal Marvel & DC checklist. All progress is saved privately in this browser.</p>
+      </div>
+      <div class="welcome-banner-form">
+        <label for="welcome-name-input" class="sr-only">Your Name</label>
+        <input type="text" id="welcome-name-input" class="welcome-input" placeholder="Your name (default: Me)" maxlength="30">
+        <button type="button" id="welcome-name-save" class="btn btn-primary btn-sm">Set Name</button>
+        <button type="button" id="welcome-close-btn" class="btn btn-secondary btn-sm" aria-label="Dismiss banner">Skip</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Global App Header -->
+  <div id="app-header-container"></div>
+
+  <!-- Main Route View Container -->
+  <main id="app-main" class="app-main" tabindex="-1" role="main" aria-live="polite">
+    <!-- Populated dynamically by js/app.js router -->
+    <div class="initial-loading-state">
+      <div class="loading-spinner" aria-hidden="true"></div>
+      <p>Initializing Multiverse Catalog...</p>
+    </div>
+  </main>
+
+  <!-- App Footer with Legal Disclaimer -->
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo-text">MULTIVERSE TRACKER</span>
+        <span class="footer-version">v1.0 • Client-side PWA</span>
+      </div>
+      <p class="footer-disclaimer">
+        Unofficial fan project. Marvel and DC and their properties belong to their respective owners.
+      </p>
+      <div class="footer-links">
+        <a href="#/home">Home</a>
+        <span>•</span>
+        <a href="#/progress">My Progress</a>
+        <span>•</span>
+        <a href="#/plan">Watch Plan</a>
+        <span>•</span>
+        <a href="#/profiles">Profiles & Backup</a>
+        <span>•</span>
+        <a href="#/about">About & TMDB</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Vanilla ES Module Entrypoint (relative path) -->
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>

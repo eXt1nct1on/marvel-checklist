@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 154 20" width="154" height="20" role="img" aria-label="The Movie Database (TMDB)">
+  <defs>
+    <linearGradient id="tmdb_grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#90cea1"/>
+      <stop offset="100%" stop-color="#01b4e4"/>
+    </linearGradient>
+  </defs>
+  <!-- Official TMDB Wordmark Vector -->
+  <path fill="url(#tmdb_grad)" d="M12.8 0H1.2C.5 0 0 .5 0 1.2v17.6c0 .7.5 1.2 1.2 1.2h11.6c.7 0 1.2-.5 1.2-1.2V1.2c0-.7-.5-1.2-1.2-1.2zm-1.8 14.5c0 .3-.2.5-.5.5H3.5c-.3 0-.5-.2-.5-.5V5.5c0-.3.2-.5.5-.5h7c.3 0 .5.2.5.5v9z"/>
+  <text x="22" y="16" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="18" fill="url(#tmdb_grad)" letter-spacing="1">TMDB</text>
+  <text x="78" y="14" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="8.5" fill="#90cea1" letter-spacing="0.5">THE MOVIE DATABASE</text>
+</svg>
+

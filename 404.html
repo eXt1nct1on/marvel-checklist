@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+  <script>
+    // Redirect to the index page in the same directory (repo root)
+    // This allows it to work under /<repo>/ on GitHub Pages
+    var path = window.location.pathname.replace(/\/[^\/]+$/, '/');
+    if (!path.endsWith('/')) path += '/';
+    window.location.replace(path + '#/home');
+  </script>
+</head>
+<body>
+  Redirecting...
+</body>
+</html>
