@@ -28,6 +28,7 @@ const __dirname = dirname(__filename);
 const ROOT_DIR = resolve(__dirname, '..');
 const DATA_JS_PATH = resolve(ROOT_DIR, 'js', 'data.js');
 const POSTERS_JS_PATH = resolve(ROOT_DIR, 'js', 'posters.js');
+const RUNTIMES_JS_PATH = resolve(ROOT_DIR, 'js', 'runtimes.js');
 const OVERRIDES_PATH = resolve(ROOT_DIR, 'data', 'tmdb-overrides.json');
 const REPORT_PATH = resolve(ROOT_DIR, 'data', 'poster-report.md');
 
@@ -35,36 +36,8 @@ const REPORT_PATH = resolve(ROOT_DIR, 'data', 'poster-report.md');
 const TMDB_TOKEN = process.env.TMDB_TOKEN?.trim();
 
 if (!TMDB_TOKEN) {
-  console.log(`
-================================================================================
-  TMDB_TOKEN is not set!
-================================================================================
-To fetch official movie and series posters, provide your TMDB v4 Read-Access Token.
-
-How to set the token:
-  PowerShell:
-    $env:TMDB_TOKEN="your_token_here"
-    node scripts/fetch-posters.mjs
-
-  Bash / Zsh:
-    export TMDB_TOKEN="your_token_here"
-    node scripts/fetch-posters.mjs
-
-  Windows CMD:
-    set TMDB_TOKEN=your_token_here
-    node scripts/fetch-posters.mjs
-
-How to obtain a free TMDB Token:
-  1. Create a free account at https://www.themoviedb.org
-  2. Navigate to Account Settings > API (https://www.themoviedb.org/settings/api)
-  3. Create an API key for Personal / Non-commercial use.
-  4. Copy your "API Read Access Token" (the v4 Bearer auth token).
-
-Note: In accordance with TMDB API terms of use, cached poster data must be
-refreshed at least every 5-6 months (use: node scripts/fetch-posters.mjs --refresh).
-================================================================================
-`);
-  process.exit(1);
+  console.log('Skipped fetching from TMDB: TMDB_TOKEN not provided.');
+  process.exit(0);
 }
 
 // 2. Parse CLI flags
@@ -173,6 +146,19 @@ async function main() {
   }
 
   const results = { ...existingPosters };
+  let existingRuntimes = {};
+  if (existsSync(RUNTIMES_JS_PATH) && !isRefresh) {
+    try {
+      const fileContent = readFileSync(RUNTIMES_JS_PATH, 'utf8');
+      const match = fileContent.match(/export\s+const\s+RUNTIMES\s*=\s*(\{[\s\S]*\});?/);
+      if (match) {
+        existingRuntimes = Function('"use strict"; return (' + match[1] + ');')();
+      }
+    } catch (e) {
+      console.warn('Could not parse existing js/runtimes.js, starting fresh.');
+    }
+  }
+  const runtimesResults = { ...existingRuntimes };
   const reportData = {
     matched: [],
     lowConfidence: [],
@@ -192,7 +178,7 @@ async function main() {
     }
 
     // Skip if already fetched and not refreshing
-    if (!isRefresh && results[id] && results[id].posterPath !== undefined) {
+    if (!isRefresh && results[id] && results[id].posterPath !== undefined && runtimesResults[id]) {
       skippedCount++;
       // Still log to report
       if (results[id].posterPath) {
@@ -384,6 +370,61 @@ async function main() {
           tmdbId: matchRecord.tmdbId
         });
       }
+      // ---- NEW: Fetch Runtime Data ----
+      try {
+        if (targetTmdbType === 'movie') {
+          const detail = await fetchTmdb(`https://api.themoviedb.org/3/movie/${matchRecord.tmdbId}?language=en-US`);
+          await sleep(250);
+          runtimesResults[id] = {
+            runtimeMin: detail?.runtime || null,
+            totalMin: detail?.runtime || null,
+            episodes: null,
+            seasons: null,
+            source: 'tmdb',
+            fetchedAt: new Date().toISOString()
+          };
+        } else {
+          const detail = await fetchTmdb(`https://api.themoviedb.org/3/tv/${matchRecord.tmdbId}?language=en-US`);
+          await sleep(250);
+          let totalMin = 0;
+          let episodeCount = 0;
+          const seasonsData = [];
+          if (detail && detail.seasons) {
+            for (const season of detail.seasons) {
+              if (season.season_number === 0) continue;
+              const sDetail = await fetchTmdb(`https://api.themoviedb.org/3/tv/${matchRecord.tmdbId}/season/${season.season_number}?language=en-US`);
+              await sleep(250);
+              if (sDetail && sDetail.episodes) {
+                const airedEps = sDetail.episodes.filter(ep => {
+                  if (!ep.air_date) return false;
+                  return new Date(ep.air_date) <= new Date();
+                });
+                if (airedEps.length > 0) {
+                  let sTotal = 0;
+                  let epRunTime = detail.episode_run_time?.[0] || 0;
+                  airedEps.forEach(ep => { sTotal += (ep.runtime || epRunTime); });
+                  seasonsData.push({ n: season.season_number, episodes: airedEps.length, totalMin: sTotal });
+                  totalMin += sTotal;
+                  episodeCount += airedEps.length;
+                }
+              }
+            }
+          }
+          runtimesResults[id] = {
+            runtimeMin: null,
+            totalMin: totalMin > 0 ? totalMin : null,
+            episodes: episodeCount > 0 ? episodeCount : null,
+            seasons: seasonsData.length > 0 ? seasonsData : null,
+            source: 'tmdb',
+            fetchedAt: new Date().toISOString()
+          };
+        }
+      } catch (err) {
+         console.error('Error fetching runtime for', id, err);
+         runtimesResults[id] = { source: 'error' };
+      }
+      // ---------------------------------
+
     } else {
       console.log(`  ✗ Unmatched: No poster found.`);
       results[id] = {

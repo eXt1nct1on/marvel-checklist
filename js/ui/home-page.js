@@ -11,6 +11,7 @@ import { POSTERS } from '../posters.js';
 import { renderCardHtml, attachCardListeners, observeLazyPosters, escapeHtml } from './card.js';
 import { initSlider } from './slider.js';
 import { applyFilters, renderFiltersHtml, attachFilterListeners } from './filters.js';
+import { fmtDuration, fmtApprox } from '../time.js';
 
 const DOOMSDAY_DATE = new Date('2026-12-18T00:00:00Z');
 let _cdInterval = null;
@@ -25,6 +26,96 @@ function getCountdownParts() {
     seconds: Math.floor((diff % 60000) / 1000),
     isPast: diff <= 0
   };
+}
+
+export function updateHeroRight() {
+  const container = document.getElementById('hero-right-container');
+  if (!container) return;
+  const cd = getCountdownParts();
+  
+  if (cd.isPast) {
+    container.innerHTML = `<div class="cd-row-label">Doomsday is out</div>`;
+    return;
+  }
+
+  // Row 1: Ticking countdown
+  const row1 = `
+    <div class="cd-row-wrap" aria-live="polite">
+      <div class="cd-row-label">TIME UNTIL DOOMSDAY</div>
+      <div class="hero-countdown" role="timer">
+        <div class="cd-unit"><span id="cd-days" class="cd-num">${cd.days}</span><span class="cd-label">DAYS</span></div>
+        <div class="cd-unit"><span id="cd-hours" class="cd-num">${String(cd.hours).padStart(2,'0')}</span><span class="cd-label">HRS</span></div>
+        <div class="cd-unit"><span id="cd-minutes" class="cd-num">${String(cd.minutes).padStart(2,'0')}</span><span class="cd-label">MIN</span></div>
+        <div class="cd-unit"><span id="cd-seconds" class="cd-num">${String(cd.seconds).padStart(2,'0')}</span><span class="cd-label">SEC</span></div>
+      </div>
+    </div>
+  `;
+
+  // Row 2: Watch time left
+  const includeOptional = store.getDoomsdayIncludeOptional();
+  const official = MOVIES.filter(m => m.universe === 'Marvel' && m.doomsday === 'official');
+  const optional = MOVIES.filter(m => m.universe === 'Marvel' && m.doomsday === 'optional');
+  const doomsdayList = includeOptional ? [...official, ...optional] : official;
+
+  let totalLeft = 0;
+  let missingDataCount = 0;
+  let hasApprox = false;
+
+  doomsdayList.forEach(m => {
+    // Exclude unreleased titles from the main count
+    if (m.upcoming) return;
+    const isWatched = store.isWatched(m.id, m.seasons);
+    if (!isWatched) {
+      if (m.totalRuntimeMin) {
+        totalLeft += m.totalRuntimeMin;
+        if (m.runtimeApprox) hasApprox = true;
+      } else {
+        missingDataCount++;
+      }
+    }
+  });
+
+  const hoursLeft = Math.floor(totalLeft / 60);
+  const minsLeft = totalLeft % 60;
+  
+  let prefix = '';
+  if (hasApprox || missingDataCount > 0) prefix = '~';
+  
+  const tooltip = missingDataCount > 0 ? ` title="${missingDataCount} titles have no runtime data yet"` : '';
+
+  const row2 = `
+    <div class="cd-row-wrap" aria-live="polite" ${tooltip}>
+      <div class="cd-row-label">WATCH TIME LEFT</div>
+      <div class="hero-countdown watch-time-left">
+        <div class="cd-unit"><span class="cd-num">${prefix}${hoursLeft}</span><span class="cd-label">HRS</span></div>
+        <div class="cd-unit"><span class="cd-num">${String(minsLeft).padStart(2,'0')}</span><span class="cd-label">MIN</span></div>
+      </div>
+    </div>
+  `;
+
+  // Row 3: Pace
+  const dailyWatchMin = store.getDailyWatchMin();
+  const paceDays = Math.ceil(totalLeft / dailyWatchMin);
+  const finishDate = new Date();
+  finishDate.setDate(finishDate.getDate() + paceDays);
+  
+  const reqMin = Math.ceil(totalLeft / Math.max(1, cd.days));
+  
+  let paceMsg = '';
+  if (totalLeft === 0) {
+    paceMsg = 'All caught up.';
+  } else if (finishDate <= DOOMSDAY_DATE) {
+    const diffDays = Math.max(0, Math.floor((DOOMSDAY_DATE - finishDate) / 86400000));
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const formatted = `${months[finishDate.getMonth()]} ${finishDate.getDate()}`;
+    paceMsg = `At ${dailyWatchMin} min/day you finish on ${formatted}, ${diffDays} days before Doomsday.`;
+  } else {
+    paceMsg = `You need at least ${reqMin} min/day to finish in time.`;
+  }
+
+  const row3 = `<div class="cd-pace-msg">${paceMsg}</div>`;
+
+  container.innerHTML = row1 + row2 + row3;
 }
 
 /* ─── Progress strip item ─────────────────────────── */
@@ -146,6 +237,27 @@ function updateProgressStrip() {
   const dcList = moviesInScope.filter(m => m.universe === 'DC');
   const dcWatched = dcList.filter(m => store.isWatched(m.id, m.seasons)).length;
 
+  let totalMin = 0;
+  let watchedMin = 0;
+  let missingCount = 0;
+  doomsdayList.forEach(m => {
+    if (m.upcoming) return;
+    if (m.totalRuntimeMin) {
+      totalMin += m.totalRuntimeMin;
+      if (store.isWatched(m.id, m.seasons)) watchedMin += m.totalRuntimeMin;
+    } else {
+      missingCount++;
+    }
+  });
+  const leftMin = Math.max(0, totalMin - watchedMin);
+  
+  const descEl = document.querySelector('#hd-doomsday + .section-desc');
+  if (descEl) {
+    let t = `Total ${fmtDuration(totalMin)} &middot; Watched ${fmtDuration(watchedMin)} &middot; Left ${fmtDuration(leftMin)}`;
+    if (missingCount > 0) t += ` <span title="${missingCount} titles missing runtime data">(~approx)</span>`;
+    descEl.innerHTML = t;
+  }
+
   const strip = document.getElementById('home-progress-strip');
   if (!strip) return;
 
@@ -158,8 +270,9 @@ function updateProgressStrip() {
 
 /* ─── Subscribe for targeted updates ─────────────── */
 store.subscribe((action) => {
-  if (action === 'watched_toggle') {
+  if (action === 'watched_toggle' || action === 'doomsday_toggle' || action === 'daily_watch_min_changed') {
     updateProgressStrip();
+    updateHeroRight();
   }
 });
 
@@ -177,6 +290,13 @@ export function renderHomePage(container) {
 
   const sliderAItems = getDoomsdayItems(includeOptional);
   const sliderAHtml = renderRailHtml({ id: 'slider-a', items: sliderAItems, priorityCount: 8 });
+
+  const DOOMSDAY_TARGET_DATE = new Date('2026-12-18T00:00:00Z');
+  const upcomingRailItems = MOVIES.filter(m => m.upcoming && new Date(m.release) < DOOMSDAY_TARGET_DATE && isMovieInCatalogScope(m, catalogScope))
+                                  .sort((a, b) => new Date(a.release) - new Date(b.release));
+  const upcomingRailHtml = upcomingRailItems.length > 0 
+    ? renderRailHtml({ id: 'slider-upcoming', items: upcomingRailItems, priorityCount: 4 })
+    : `<div class="empty-state" style="padding: 24px; text-align: center; border: 2px dashed var(--border); color: var(--muted);">No upcoming titles before Doomsday.</div>`;
 
   const filteredItems = applyFilters(MOVIES, prefs.filters);
   const isGrid = prefs.filters?.view === 'grid';
@@ -198,11 +318,8 @@ export function renderHomePage(container) {
             <h1 class="hero-title">AVENGERS:<br>DOOMSDAY</h1>
             <p class="hero-subtitle">Track every title before the final battle.</p>
           </div>
-          <div class="hero-countdown" role="timer" aria-label="Countdown to Avengers Doomsday">
-            <div class="cd-unit"><span id="cd-days"   class="cd-num">${cd.days}</span><span class="cd-label">DAYS</span></div>
-            <div class="cd-unit"><span id="cd-hours"  class="cd-num">${String(cd.hours).padStart(2,'0')}</span><span class="cd-label">HRS</span></div>
-            <div class="cd-unit"><span id="cd-minutes" class="cd-num">${String(cd.minutes).padStart(2,'0')}</span><span class="cd-label">MIN</span></div>
-            <div class="cd-unit"><span id="cd-seconds" class="cd-num">${String(cd.seconds).padStart(2,'0')}</span><span class="cd-label">SEC</span></div>
+          <div class="hero-right" id="hero-right-container">
+            <!-- populated by updateHeroRight() -->
           </div>
         </div>
       </div>
@@ -246,6 +363,23 @@ export function renderHomePage(container) {
         </div>
         <div id="slider-a-container">
           ${sliderAHtml}
+        </div>
+      </section>
+
+      <!-- ── UPCOMING ── -->
+      <section class="home-section" aria-labelledby="hd-upcoming">
+        <div class="section-hd">
+          <div class="section-hd-left">
+            <h2 class="section-title" id="hd-upcoming">COMING BEFORE DOOMSDAY</h2>
+            <p class="section-desc">${upcomingRailItems.length} titles left to release</p>
+          </div>
+          <div class="section-hd-right">
+            <button type="button" class="slider-nav-prev" id="slider-upcoming-prev" aria-label="Previous">&#8592;</button>
+            <button type="button" class="slider-nav-next" id="slider-upcoming-next" aria-label="Next">&#8594;</button>
+          </div>
+        </div>
+        <div id="slider-upcoming-container">
+          ${upcomingRailHtml}
         </div>
       </section>
 
@@ -311,6 +445,23 @@ export function renderHomePage(container) {
     updateANav();
   }
 
+  /* ── Slider Upcoming ── */
+  const trackUpcoming = container.querySelector('#slider-upcoming-track');
+  const prevUpcoming  = container.querySelector('#slider-upcoming-prev');
+  const nextUpcoming  = container.querySelector('#slider-upcoming-next');
+  if (trackUpcoming && prevUpcoming && nextUpcoming) {
+    function updateUpcomingNav() {
+      const max = trackUpcoming.scrollWidth - trackUpcoming.clientWidth;
+      prevUpcoming.disabled = trackUpcoming.scrollLeft <= 2;
+      nextUpcoming.disabled = trackUpcoming.scrollLeft >= max - 2;
+    }
+    prevUpcoming.addEventListener('click', () => { trackUpcoming.scrollBy({ left: -trackUpcoming.clientWidth * 0.8, behavior: 'auto' }); });
+    nextUpcoming.addEventListener('click', () => { trackUpcoming.scrollBy({ left:  trackUpcoming.clientWidth * 0.8, behavior: 'auto' }); });
+    trackUpcoming.addEventListener('scroll', updateUpcomingNav, { passive: true });
+    // wait a tick for layout
+    setTimeout(updateUpcomingNav, 50);
+  }
+
   /* ── Slider B ── */
   const trackB = container.querySelector('#slider-b-track');
   const prevB  = container.querySelector('#slider-b-prev');
@@ -369,10 +520,13 @@ export function renderHomePage(container) {
   const emptyReset = container.querySelector('#btn-empty-reset');
   if (emptyReset) {
     emptyReset.addEventListener('click', () => {
-      store.updatePrefs({ filters: { universe:'all', type:'all', franchises:[], status:'all', search:'', sort:'release', view:'slider' } });
+      store.updatePrefs({ filters: { universe:'all', type:'all', franchises:[], status:'all', search:'', sort:'release', runtime: 'all', view:'slider' } });
       renderHomePage(container);
     });
   }
+
+  updateProgressStrip();
+  updateHeroRight();
 }
 
 export function destroyHomePage() {

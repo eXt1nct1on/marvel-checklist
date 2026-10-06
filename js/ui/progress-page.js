@@ -8,6 +8,7 @@ import { store } from '../store.js';
 import { getUpNextFromPlan, isMovieInCatalogScope } from '../plan.js';
 import { renderCardHtml, attachCardListeners, observeLazyPosters, escapeHtml, formatReleaseDisplay } from './card.js';
 import { applyFilters, renderFiltersHtml, attachFilterListeners } from './filters.js';
+import { fmtDuration, fmtApprox } from '../time.js';
 
 const DOOMSDAY_TARGET_DATE = new Date('2026-12-18T00:00:00Z');
 
@@ -17,26 +18,80 @@ export function renderProgressPage(container) {
   const plan = store.getPlan();
   const catalogScope = store.getCatalogScope();
 
+  function calcWatchTime(list) {
+    let sum = 0;
+    for (const m of list) {
+      if (store.isWatched(m.id, m.seasons)) {
+        if (m.totalRuntimeMin) sum += m.totalRuntimeMin;
+        else if (m.runtimeMin) sum += m.runtimeMin;
+      } else if (m.seasons) {
+        const watched = watchedMap[m.id]?.seasons || [];
+        if (watched.length > 0 && m.seasonsData) {
+          for (const s of m.seasonsData) {
+            if (watched.includes(s.n) && s.totalMin) sum += s.totalMin;
+          }
+        }
+      }
+    }
+    return sum;
+  }
+
+  function calcTotalTime(list) {
+    let sum = 0;
+    for (const m of list) {
+      if (m.totalRuntimeMin) sum += m.totalRuntimeMin;
+      else if (m.runtimeMin) sum += m.runtimeMin;
+    }
+    return sum;
+  }
+
   const moviesInScope = MOVIES.filter((m) => isMovieInCatalogScope(m, catalogScope));
   const totalCount = moviesInScope.length;
   const watchedInScope = moviesInScope.filter((m) => store.isWatched(m.id, m.seasons)).length;
   const overallPct = totalCount > 0 ? Math.round((watchedInScope / totalCount) * 100) : 0;
+  const overallWatchedMin = calcWatchTime(moviesInScope);
+  const overallTotalMin = calcTotalTime(moviesInScope);
 
   const marvelList = moviesInScope.filter((m) => m.universe === 'Marvel');
   const marvelWatched = marvelList.filter((m) => store.isWatched(m.id, m.seasons)).length;
   const marvelPct = marvelList.length > 0 ? Math.round((marvelWatched / marvelList.length) * 100) : 0;
+  const marvelWatchedMin = calcWatchTime(marvelList);
+  const marvelTotalMin = calcTotalTime(marvelList);
 
   const dcList = moviesInScope.filter((m) => m.universe === 'DC');
   const dcWatched = dcList.filter((m) => store.isWatched(m.id, m.seasons)).length;
   const dcPct = dcList.length > 0 ? Math.round((dcWatched / dcList.length) * 100) : 0;
+  const dcWatchedMin = calcWatchTime(dcList);
+  const dcTotalMin = calcTotalTime(dcList);
 
   const doomsdayIncludeOptional = store.getDoomsdayIncludeOptional();
   const doomsdayOfficial = MOVIES.filter((m) => m.universe === 'Marvel' && m.doomsday === 'official');
   const doomsdayOptional = MOVIES.filter((m) => m.universe === 'Marvel' && m.doomsday === 'optional');
   const doomsdayList = doomsdayIncludeOptional ? [...doomsdayOfficial, ...doomsdayOptional] : doomsdayOfficial;
+  
+  function calcUnwatchedTime(list) {
+    let sum = 0;
+    for (const m of list) {
+      if (m.upcoming) continue;
+      if (store.isWatched(m.id, m.seasons)) continue;
+      if (m.seasons) {
+        const watched = watchedMap[m.id]?.seasons || [];
+        if (m.seasonsData) {
+          for (const s of m.seasonsData) {
+            if (!watched.includes(s.n) && s.totalMin) sum += s.totalMin;
+          }
+        }
+      } else {
+        if (m.runtimeMin) sum += m.runtimeMin;
+      }
+    }
+    return sum;
+  }
+  
   const doomsdayWatched = doomsdayList.filter((m) => store.isWatched(m.id, m.seasons)).length;
   const doomsdayLeft = Math.max(0, doomsdayList.length - doomsdayWatched);
   const doomsdayPct = Math.round((doomsdayWatched / doomsdayList.length) * 100);
+  const doomsdayLeftTime = calcUnwatchedTime(doomsdayList);
 
   const msRemaining = DOOMSDAY_TARGET_DATE.getTime() - new Date().getTime();
   const daysRemaining = Math.max(0, Math.ceil(msRemaining / (1000 * 60 * 60 * 24)));
@@ -79,21 +134,21 @@ export function renderProgressPage(container) {
           <div class="progress-item">
             <div class="progress-item-header">
               <span class="progress-item-title">Total</span>
-              <span class="progress-item-val">${watchedInScope}<span class="progress-item-pct"> / ${totalCount}</span></span>
+              <span class="progress-item-val">${watchedInScope}<span class="progress-item-pct"> / ${totalCount} &middot; ${fmtDuration(overallWatchedMin)}</span></span>
             </div>
             <div class="progress-bar-wrap"><div class="progress-bar-fill fill-text" style="width:${overallPct}%"></div></div>
           </div>
           <div class="progress-item">
             <div class="progress-item-header">
               <span class="progress-item-title">Marvel</span>
-              <span class="progress-item-val">${marvelWatched}<span class="progress-item-pct"> / ${marvelList.length}</span></span>
+              <span class="progress-item-val">${marvelWatched}<span class="progress-item-pct"> / ${marvelList.length} &middot; ${fmtDuration(marvelWatchedMin)}</span></span>
             </div>
             <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${marvelPct}%"></div></div>
           </div>
           <div class="progress-item">
             <div class="progress-item-header">
               <span class="progress-item-title">DC</span>
-              <span class="progress-item-val">${dcWatched}<span class="progress-item-pct"> / ${dcList.length}</span></span>
+              <span class="progress-item-val">${dcWatched}<span class="progress-item-pct"> / ${dcList.length} &middot; ${fmtDuration(dcWatchedMin)}</span></span>
             </div>
             <div class="progress-bar-wrap"><div class="progress-bar-fill fill-dc" style="width:${dcPct}%"></div></div>
           </div>
@@ -101,7 +156,7 @@ export function renderProgressPage(container) {
 
         <div style="border: 2px solid var(--border); padding: 16px; margin-bottom: 32px; background: var(--surface)">
           <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-            <strong>BEFORE DOOMSDAY: ${doomsdayLeft} LEFT (${daysRemaining} DAYS)</strong>
+            <strong>BEFORE DOOMSDAY: ${doomsdayLeft} LEFT (${daysRemaining} DAYS) &middot; ${fmtDuration(doomsdayLeftTime)} Watch Time Left</strong>
             <div style="display:flex; gap:8px;">
               <button class="btn btn-sm ${!doomsdayIncludeOptional ? 'btn-primary' : ''}" id="progress-doomsday-official">Official</button>
               <button class="btn btn-sm ${doomsdayIncludeOptional ? 'btn-primary' : ''}" id="progress-doomsday-optional">+ Optional</button>

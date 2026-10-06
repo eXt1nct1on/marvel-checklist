@@ -9,6 +9,7 @@ import { store } from '../store.js';
 import { MOVIES } from '../data.js';
 import { POSTERS } from '../posters.js';
 import { openMovieModal } from './modal.js';
+import { fmtDuration, fmtApprox } from '../time.js';
 
 const failedPosters = new Set();
 let _observer = null;
@@ -114,6 +115,16 @@ export function renderCardHtml(movie, options = {}) {
   const typeLabel = movie.type === 'TV Series' ? 'Series' : 'Movie';
   const btnLabel = isWatched ? 'WATCHED' : isPartial ? `${watchedSeasons.length}/${movie.seasons} WATCHED` : 'MARK WATCHED';
 
+  let runtimeLabel = 'TBA';
+  if (movie.totalRuntimeMin) {
+    runtimeLabel = fmtApprox(fmtDuration(movie.totalRuntimeMin), movie.runtimeApprox);
+    if (movie.type === 'TV Series' && movie.episodes) {
+      runtimeLabel = `${movie.episodes} eps · ` + runtimeLabel;
+    }
+  }
+  // We use aria-label to spell out the abbreviation later or keep it simple.
+  const runtimeHtml = `<div class="card-runtime-badge" aria-label="Runtime: ${escapeHtml(runtimeLabel)}">${escapeHtml(runtimeLabel)}</div>`;
+
   return `
     <article
       class="movie-card ${shapeClass} ${isWatched ? 'is-watched' : ''} ${isMarvel ? 'card-marvel' : 'card-dc'} ${isOptional ? 'is-optional' : ''}"
@@ -124,6 +135,7 @@ export function renderCardHtml(movie, options = {}) {
       <div class="card-stripe"></div>
       <div class="card-poster-wrapper">
         ${mediaHtml}
+        ${runtimeHtml}
         <div class="card-badges">${badgesHtml}</div>
       </div>
       <div class="card-content">
@@ -138,9 +150,10 @@ export function renderCardHtml(movie, options = {}) {
         role="checkbox"
         aria-checked="${isWatched}"
         aria-label="${isWatched ? 'Unmark' : 'Mark'} ${escapeHtml(movie.title)} as watched"
+        ${movie.upcoming ? 'disabled style="opacity: 0.5; cursor: not-allowed; pointer-events: none;"' : ''}
       >
         <span class="watch-checkbox"></span>
-        <span class="watch-label">${btnLabel}</span>
+        <span class="watch-label">${movie.upcoming ? 'UPCOMING' : btnLabel}</span>
       </button>
     </article>
   `;

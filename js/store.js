@@ -19,6 +19,7 @@ function createDefaultPrefs() {
     catalogScope: 'core', // 'core' | 'extended' | 'everything'
     doomsdayIncludeOptional: false,
     includeOptionalInSliderA: false,
+    dailyWatchMin: 60,
     filters: {
       universe: 'all', // 'all' | 'Marvel' | 'DC'
       type: 'all', // 'all' | 'Movie' | 'TV Series' | 'Special' | 'Short'
@@ -28,7 +29,8 @@ function createDefaultPrefs() {
       franchises: [], // array of franchise strings
       status: 'all', // 'all' | 'watched' | 'unwatched'
       search: '',
-      sort: 'release', // 'release' | 'chrono'
+      sort: 'release', // 'release' | 'chrono' | 'shortest' | 'longest'
+      runtime: 'all', // 'all' | 'under-2h' | '2h-to-3h' | 'over-3h' | 'series'
       view: 'slider' // 'slider' | 'grid'
     }
   };
@@ -354,6 +356,19 @@ class Store {
     const boolVal = Boolean(val);
     this.updatePrefs({ doomsdayIncludeOptional: boolVal, includeOptionalInSliderA: boolVal });
     this.notify('doomsday_toggle', { doomsdayIncludeOptional: boolVal });
+  }
+
+  getDailyWatchMin() {
+    const profile = this.getActiveProfile();
+    return (profile && profile.prefs && profile.prefs.dailyWatchMin) || 60;
+  }
+
+  setDailyWatchMin(val) {
+    let min = parseInt(val, 10);
+    if (isNaN(min) || min < 15) min = 15;
+    if (min > 600) min = 600;
+    this.updatePrefs({ dailyWatchMin: min });
+    this.notify('daily_watch_min_changed', { dailyWatchMin: min });
   }
 
   isWatched(movieId, totalSeasons = null) {

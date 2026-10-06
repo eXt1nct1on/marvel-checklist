@@ -190,9 +190,9 @@ export function convertCSVToData() {
     const item = {};
     headers.forEach((h, idx) => {
       let val = cols[idx] !== undefined ? cols[idx] : '';
-      if (h === 'chronoApprox' || h === 'needsReview') {
+      if (h === 'chronoApprox' || h === 'needsReview' || h === 'runtimeApprox') {
         val = val === 'true';
-      } else if (h === 'seasons' || h === 'runtimeMin' || h === 'doomsdayOrder') {
+      } else if (h === 'seasons' || h === 'runtimeMin' || h === 'doomsdayOrder' || h === 'episodes' || h === 'episodeRuntimeMin' || h === 'totalRuntimeMin') {
         val = val ? parseInt(val, 10) : null;
       } else if (h === 'tmdbId') {
         val = val ? parseInt(val, 10) : null;
@@ -200,13 +200,23 @@ export function convertCSVToData() {
       item[h] = val;
     });
 
-    // Derive upcoming boolean
-    const isUpcoming =
-      item.status === 'upcoming' ||
-      item.status === 'tbd' ||
-      (item.release && item.release.startsWith('2026') && !item.release.startsWith('2026-07')) ||
-      (item.release && item.release.startsWith('2027'));
-
+    // Determine upcoming status dynamically against local date vs release date
+    let isUpcoming = false;
+    if (item.status === 'tbd' || item.status === 'upcoming') {
+      isUpcoming = true; // wait, no, "computed at RUNTIME from its release date vs today" - so in app.js? The user said "a stored status is only used for 'tbd'".
+    }
+    // So let's just leave item.status and let the frontend compute `item.upcoming`
+    item.upcoming = item.status === 'tbd' || item.status === 'upcoming'; 
+    // actually, wait, the prompt says "computed at RUNTIME", so I can just leave it to JS on the frontend to overwrite it. But I'll set it here based on date for the static export just in case.
+    if (item.release && /^\d{4}-\d{2}-\d{2}$/.test(item.release)) {
+      const today = new Date().toISOString().split('T')[0];
+      if (item.release > today) {
+        isUpcoming = true;
+      } else {
+        isUpcoming = false;
+      }
+    }
+    
     item.upcoming = isUpcoming;
     return item;
   });
@@ -315,6 +325,11 @@ export const DATA_VERSION = 2;
  * @property {string} platform - Primary viewing platform
  * @property {number|null} seasons - Total seasons for TV series
  * @property {number|null} runtimeMin - Movie runtime in minutes
+ * @property {number|null} episodes - Number of episodes
+ * @property {number|null} episodeRuntimeMin - Average episode runtime in minutes
+ * @property {number|null} totalRuntimeMin - Total watch time in minutes
+ * @property {"tmdb"|"seed"|"estimate"|null} runtimeSource - Source of the runtime data
+ * @property {boolean} runtimeApprox - True if the runtime is approximate
  * @property {"core"|"extended"|"fringe"} tier - Catalog breadth tier
  * @property {"official"|"optional"|"no"|"na"} doomsday - Relevance to Avengers: Doomsday
  * @property {number|null} doomsdayOrder - Official Disney+ sequence (1..15) or null
@@ -326,7 +341,21 @@ export const DATA_VERSION = 2;
  * @property {boolean} upcoming - True if unreleased
  */
 
-export const MOVIES = ${JSON.stringify(rawItems, null, 2)};
+import { RUNTIMES } from './runtimes.js';
+
+const _MOVIES = ${JSON.stringify(rawItems, null, 2)};
+
+export const MOVIES = _MOVIES.map(m => {
+  const rt = RUNTIMES[m.id];
+  if (rt) {
+    if (rt.runtimeMin !== undefined && rt.runtimeMin !== null) m.runtimeMin = rt.runtimeMin;
+    if (rt.episodes !== undefined && rt.episodes !== null) m.episodes = rt.episodes;
+    if (rt.totalMin !== undefined && rt.totalMin !== null) m.totalRuntimeMin = rt.totalMin;
+    if (rt.seasons) m.seasonsData = rt.seasons;
+    m.runtimeSource = rt.source || 'tmdb';
+  }
+  return m;
+});
 
 export default MOVIES;
 `;

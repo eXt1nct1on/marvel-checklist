@@ -44,6 +44,26 @@ export function renderPlanPage(container) {
     catalogScope
   });
 
+  const prefs = store.getPrefs();
+  const dailyWatchMin = prefs.dailyWatchMin || 60;
+
+  let totalLeftMin = 0;
+  for (const m of planResult.items) {
+    if (m.upcoming) continue;
+    if (store.isWatched(m.id, m.seasons)) continue;
+    if (m.seasons && watchedMap[m.id]?.seasons && m.seasonsData) {
+      for (const s of m.seasonsData) {
+        if (!watchedMap[m.id].seasons.includes(s.n) && s.totalMin) totalLeftMin += s.totalMin;
+      }
+    } else {
+      totalLeftMin += m.totalRuntimeMin || m.runtimeMin || 0;
+    }
+  }
+  const finishDays = Math.ceil(totalLeftMin / dailyWatchMin) || 0;
+  const finishDate = new Date();
+  finishDate.setDate(finishDate.getDate() + finishDays);
+  const summaryStr = `${planResult.remainingCount} titles &middot; ${fmtDuration(totalLeftMin)} &middot; finish by ${finishDate.toLocaleDateString(undefined, {month: 'short', day: 'numeric', year: 'numeric'})} at ${dailyWatchMin} min/day`;
+
   const isCurrentPlanSaved = savedPlan && savedPlan.order === planGeneratorState.order && savedPlan.scope === planGeneratorState.scope && Boolean(savedPlan.skipWatched) === Boolean(planGeneratorState.skipWatched);
 
   const html = `
@@ -95,8 +115,11 @@ export function renderPlanPage(container) {
         ${savedPlan ? `<button type="button" class="btn btn-secondary btn-lg" id="btn-reset-plan">Reset Plan</button>` : ''}
       </div>
 
-      <h2 class="display-font" style="font-size: 32px; border-bottom: 4px solid var(--border); margin-bottom: 16px;">LIVE PREVIEW (${planResult.remainingCount} REMAINING)</h2>
-      ${renderPlanItemsList(planResult.items, watchedMap)}
+      <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 4px solid var(--border); margin-bottom: 16px;">
+        <h2 class="display-font" style="font-size: 32px; margin: 0;">LIVE PREVIEW</h2>
+        <span style="font-weight: bold;">${summaryStr}</span>
+      </div>
+      ${renderPlanItemsList(planResult.items, watchedMap, dailyWatchMin)}
     </div>
   `;
 
@@ -184,20 +207,43 @@ function formatScopeName(scope) {
   }
 }
 
-function renderPlanItemsList(items, watchedMap) {
+function renderPlanItemsList(items, watchedMap, dailyWatchMin) {
   if (items.length === 0) return '<p>No remaining titles in this plan sequence.</p>';
+
+  let cumulativeMin = 0;
 
   return `
     <div style="display:flex; flex-direction:column; gap:8px;">
       ${items.map((movie, index) => {
         const isWatched = store.isWatched(movie.id, movie.seasons);
+        let runtime = 0;
+
+        if (!movie.upcoming && !isWatched) {
+           if (movie.seasons && watchedMap[movie.id]?.seasons && movie.seasonsData) {
+             for (const s of movie.seasonsData) {
+               if (!watchedMap[movie.id].seasons.includes(s.n) && s.totalMin) runtime += s.totalMin;
+             }
+           } else {
+             runtime = movie.totalRuntimeMin || movie.runtimeMin || 0;
+           }
+        }
+        cumulativeMin += runtime;
+        
+        let dayStr = "";
+        if (runtime > 0 && dailyWatchMin > 0) {
+           const dayN = Math.ceil(cumulativeMin / dailyWatchMin);
+           dayStr = ` • Day ${dayN}`;
+        }
+        
+        const runtimeText = runtime > 0 ? fmtDuration(runtime) : 'TBA';
+
         return `
           <div style="display:flex; align-items:center; gap:16px; padding:12px; border:2px solid var(--border); background:var(--surface);">
             <div style="font-family:'Bebas Neue', sans-serif; font-size:24px; min-width:32px;">${index + 1}</div>
             <div style="flex-grow:1;">
               <strong style="display:block; font-size:18px;">${escapeHtml(movie.title)}</strong>
               <div style="font-size:12px; color:var(--muted); text-transform:uppercase;">
-                ${escapeHtml(movie.universe)} • ${escapeHtml(movie.franchise.split('(')[0].trim())} • ${escapeHtml(formatReleaseDisplay(movie.release))}
+                ${escapeHtml(movie.universe)} • ${escapeHtml(movie.franchise.split('(')[0].trim())} • ${escapeHtml(formatReleaseDisplay(movie.release))} • ${runtimeText}${dayStr}
               </div>
             </div>
             <div>

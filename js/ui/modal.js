@@ -6,6 +6,7 @@
 import { store } from '../store.js';
 import { POSTERS } from '../posters.js';
 import { escapeHtml, formatReleaseDisplay, announceLiveMessage } from './card.js';
+import { fmtDuration, fmtApprox } from '../time.js';
 
 let activeModalEl = null;
 let lastFocusedEl = null;
@@ -77,6 +78,11 @@ export function openMovieModal(movie, onStateChange = null) {
     `;
   }
 
+  const totalMin = movie.totalRuntimeMin || movie.runtimeMin || null;
+  const runtimeDisplay = fmtApprox(fmtDuration(totalMin), movie.runtimeApprox);
+  const epsStr = movie.episodes ? `${movie.episodes} eps &middot; ` : '';
+  const runtimeStr = ` &middot; ${epsStr}${runtimeDisplay}`;
+
   let seasonsGridHtml = '';
   if (movie.type === 'TV Series' && movie.seasons && movie.seasons > 1 && !isUpcoming) {
     seasonsGridHtml = `
@@ -85,6 +91,8 @@ export function openMovieModal(movie, onStateChange = null) {
         <div class="modal-seasons-grid" role="group" aria-label="Seasons">
           ${Array.from({ length: movie.seasons }, (_, i) => i + 1).map((s) => {
             const isDone = watchedSeasons.includes(s);
+            const sData = movie.seasonsData?.find(sd => sd.n === s);
+            const sText = sData && sData.totalMin ? fmtDuration(sData.totalMin) : 'TBA';
             return `
               <button
                 type="button"
@@ -95,7 +103,7 @@ export function openMovieModal(movie, onStateChange = null) {
                 role="checkbox"
                 aria-checked="${isDone}"
               >
-                S${s} ${isDone ? '✓' : ''}
+                S${s} &middot; ${sText} ${isDone ? '✓' : ''}
               </button>
             `;
           }).join('')}
@@ -113,7 +121,7 @@ export function openMovieModal(movie, onStateChange = null) {
           <div class="card-badges" style="margin-bottom: 16px;">${badges.join('')}</div>
           <h2 id="modal-movie-title" class="display-font" style="font-size: 40px; margin-bottom: 8px;">${escapeHtml(movie.title)}</h2>
           <div style="font-size: 14px; color: var(--muted); margin-bottom: 24px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.05em;">
-            ${escapeHtml(formattedRelease)} • ${escapeHtml(movie.era || 'Feature')} ${movie.platform ? `• ${escapeHtml(movie.platform)}` : ''}
+            ${escapeHtml(formattedRelease)} • ${escapeHtml(movie.era || 'Feature')} ${movie.platform ? `• ${escapeHtml(movie.platform)}` : ''}${runtimeStr}
           </div>
 
           ${doomsdayCalloutHtml}

@@ -74,6 +74,22 @@ export function renderProfilesPage(container) {
           </div>
           
           <div style="border:2px solid var(--border); padding:16px; background:var(--surface);">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: 8px;">
+              <div>
+                <strong style="display:block;">Daily Watch Pace</strong>
+                <span style="font-size:12px; color:var(--muted);">Used for Watch Plan and Doomsday progress</span>
+              </div>
+            </div>
+            <div>
+              <div style="display:flex; justify-content:space-between; margin-bottom: 4px;">
+                <label for="range-daily-watch" style="font-size: 14px; font-weight: bold;">Minutes per day</label>
+                <span id="label-daily-watch" style="font-size: 14px;">${activeProfile.prefs.dailyWatchMin || 60}m</span>
+              </div>
+              <input type="range" id="range-daily-watch" min="15" max="600" step="15" value="${activeProfile.prefs.dailyWatchMin || 60}" style="width: 100%;">
+            </div>
+          </div>
+
+          <div style="border:2px solid var(--border); padding:16px; background:var(--surface);">
             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: 16px;">
               <div>
                 <strong style="display:block;">Background Video</strong>
@@ -216,6 +232,16 @@ export function renderProfilesPage(container) {
       const val = parseFloat(e.target.value);
       if (bgVideoOpacityLabel) bgVideoOpacityLabel.textContent = val.toFixed(2);
       store.updatePrefs({ bgVideoOpacity: val });
+    });
+  }
+
+  const dailyWatchRange = container.querySelector('#range-daily-watch');
+  const dailyWatchLabel = container.querySelector('#label-daily-watch');
+  if (dailyWatchRange) {
+    dailyWatchRange.addEventListener('input', (e) => {
+      const val = parseInt(e.target.value, 10);
+      if (dailyWatchLabel) dailyWatchLabel.textContent = val + 'm';
+      store.updatePrefs({ dailyWatchMin: val });
     });
   }
 

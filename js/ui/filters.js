@@ -84,6 +84,7 @@ export function applyFilters(movies, filterCriteria = {}) {
     status = 'all',
     search = '',
     sort = 'release',
+    runtime = 'all',
     catalogScope = null
   } = filterCriteria;
 
@@ -147,12 +148,38 @@ export function applyFilters(movies, filterCriteria = {}) {
       }
     }
 
+    // 9. Runtime
+    if (runtime !== 'all') {
+      const rt = movie.totalRuntimeMin;
+      if (runtime === 'under-2h') {
+        if (!rt || rt >= 120) return false;
+      } else if (runtime === '2h-to-3h') {
+        if (!rt || rt < 120 || rt > 180) return false;
+      } else if (runtime === 'over-3h') {
+        if (!rt || rt <= 180) return false;
+      } else if (runtime === 'series') {
+        if (movie.type !== 'TV Series') return false;
+      }
+    }
+
     return true;
   });
 
   // Sort
   if (sort === 'chrono') {
     return sortChronologicalOrder(filtered);
+  } else if (sort === 'shortest') {
+    return filtered.sort((a, b) => {
+      const rtA = a.totalRuntimeMin || Infinity;
+      const rtB = b.totalRuntimeMin || Infinity;
+      return rtA - rtB;
+    });
+  } else if (sort === 'longest') {
+    return filtered.sort((a, b) => {
+      const rtA = a.totalRuntimeMin || 0;
+      const rtB = b.totalRuntimeMin || 0;
+      return rtB - rtA;
+    });
   } else {
     return sortReleaseOrder(filtered, 'everything');
   }
@@ -177,6 +204,7 @@ export function renderFiltersHtml(currentFilters = {}, totalCount = 0, matchCoun
     status = 'all',
     search = '',
     sort = 'release',
+    runtime = 'all',
     view = 'slider'
   } = currentFilters;
 
@@ -245,6 +273,8 @@ export function renderFiltersHtml(currentFilters = {}, totalCount = 0, matchCoun
           <select id="filter-sort-select" class="filter-select" aria-label="Sort Order">
             <option value="release" ${sort === 'release' ? 'selected' : ''}>Release Order</option>
             <option value="chrono" ${sort === 'chrono' ? 'selected' : ''}>Chronological Order</option>
+            <option value="shortest" ${sort === 'shortest' ? 'selected' : ''}>Shortest first</option>
+            <option value="longest" ${sort === 'longest' ? 'selected' : ''}>Longest first</option>
           </select>
         </div>
 
@@ -300,6 +330,16 @@ export function renderFiltersHtml(currentFilters = {}, totalCount = 0, matchCoun
               ${escapeHtml(t.label)}
             </button>
           `).join('')}
+        </div>
+
+        <!-- Runtime -->
+        <div class="chip-group" role="group" aria-label="Filter by Runtime">
+          <span class="chip-group-label">Runtime:</span>
+          <button type="button" class="filter-chip ${runtime === 'all' ? 'is-active' : ''}" data-filter-type="runtime" data-filter-val="all">All</button>
+          <button type="button" class="filter-chip ${runtime === 'under-2h' ? 'is-active' : ''}" data-filter-type="runtime" data-filter-val="under-2h">Under 2h</button>
+          <button type="button" class="filter-chip ${runtime === '2h-to-3h' ? 'is-active' : ''}" data-filter-type="runtime" data-filter-val="2h-to-3h">2h to 3h</button>
+          <button type="button" class="filter-chip ${runtime === 'over-3h' ? 'is-active' : ''}" data-filter-type="runtime" data-filter-val="over-3h">Over 3h</button>
+          <button type="button" class="filter-chip ${runtime === 'series' ? 'is-active' : ''}" data-filter-type="runtime" data-filter-val="series">Series</button>
         </div>
 
         <!-- Status -->

@@ -35,8 +35,10 @@ A fast, production-ready, zero-dependency Marvel and DC movie & series tracker w
 - **Per-Season Storage**: Saved under `watched[id].seasons = [1, 2, ...]`.
 - **Partial Watched Badges**: Displays progress such as `1/3 S` when a series is partially completed, and automatically advances to full "Watched" status when all seasons are finished.
 
-### 4. Live Countdown & Progress Rings
+### 4. Live Countdown, Watch Time Pace, & Progress
 - **Avengers: Doomsday Countdown**: Real-time ticker counting down to December 18, 2026 (Days, Hours, Minutes, Seconds).
+- **Watch Time Pace**: Instantly calculates your remaining runtime left in the Doomsday scope and displays your completion date based on your customizable **Daily Watch Pace** (default 60 minutes/day).
+- **Overall Runtime Stats**: View exact cumulative watch times (e.g., "4d 6h") for your complete catalog history, including precise partial-season TV breakdowns.
 - **Animated SVG Progress Rings**: Live indicators showing progress for:
   - *Before Doomsday*: Essential Disney+ priority watchlist (15 official titles).
   - *Marvel*: Progress scaled to your active catalog tier (Core, Extended, or Everything).

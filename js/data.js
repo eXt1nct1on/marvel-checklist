@@ -2,7 +2,7 @@
  * MARVEL & DC MOVIE CHECKLIST TRACKER DATA
  * Auto-generated from data/catalog.csv via scripts/csv-to-data.mjs
  *
- * Total titles: 199
+ * Total titles: 202
  * Official Doomsday watch count: 15
  *
  * To add a new movie/series:
@@ -30,6 +30,11 @@ export const DATA_VERSION = 2;
  * @property {string} platform - Primary viewing platform
  * @property {number|null} seasons - Total seasons for TV series
  * @property {number|null} runtimeMin - Movie runtime in minutes
+ * @property {number|null} episodes - Number of episodes
+ * @property {number|null} episodeRuntimeMin - Average episode runtime in minutes
+ * @property {number|null} totalRuntimeMin - Total watch time in minutes
+ * @property {"tmdb"|"seed"|"estimate"|null} runtimeSource - Source of the runtime data
+ * @property {boolean} runtimeApprox - True if the runtime is approximate
  * @property {"core"|"extended"|"fringe"} tier - Catalog breadth tier
  * @property {"official"|"optional"|"no"|"na"} doomsday - Relevance to Avengers: Doomsday
  * @property {number|null} doomsdayOrder - Official Disney+ sequence (1..15) or null
@@ -41,7 +46,9 @@ export const DATA_VERSION = 2;
  * @property {boolean} upcoming - True if unreleased
  */
 
-export const MOVIES = [
+import { RUNTIMES } from './runtimes.js';
+
+const _MOVIES = [
   {
     "id": "superman-1978",
     "universe": "DC",
@@ -67,6 +74,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 143,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -94,6 +106,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 127,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -121,6 +138,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 91,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -148,6 +170,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 125,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -175,6 +202,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 124,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -202,6 +234,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 110,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -229,6 +266,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 90,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -256,6 +298,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 126,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -283,6 +330,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 89,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -310,6 +362,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 88,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -337,6 +394,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 97,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -364,6 +426,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 126,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -391,6 +458,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 76,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -418,6 +490,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 121,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -445,6 +522,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 125,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -472,6 +554,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 97,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -499,6 +586,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 120,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -526,6 +618,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 104,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -553,6 +650,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 117,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -580,6 +682,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 121,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -607,6 +714,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 103,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -634,6 +746,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 138,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -661,6 +778,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 134,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -688,6 +810,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 113,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -715,6 +842,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 104,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -742,6 +874,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 127,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -769,6 +906,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 124,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -796,6 +938,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 140,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -823,6 +970,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 121,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -850,6 +1002,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 97,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -877,6 +1034,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 106,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -904,6 +1066,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 97,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -931,6 +1098,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 132,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -958,6 +1130,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 154,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -985,6 +1162,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 104,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1012,6 +1194,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 92,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1039,6 +1226,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 110,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1066,6 +1258,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 139,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1093,6 +1290,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 126,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1120,6 +1322,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 103,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1147,6 +1354,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 152,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1174,6 +1386,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 112,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1201,6 +1418,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 163,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1228,6 +1450,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 107,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1255,6 +1482,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 75,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1282,6 +1514,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 124,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1309,6 +1546,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 81,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1336,6 +1578,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 124,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1363,6 +1610,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 95,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1390,6 +1642,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 114,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1417,6 +1674,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 115,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1444,6 +1706,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 131,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1471,6 +1738,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 4,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1498,6 +1770,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 4,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1525,6 +1802,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1552,6 +1834,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 148,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1579,6 +1866,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 136,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1606,6 +1898,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 143,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1633,6 +1930,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 164,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1660,6 +1962,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 12,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1687,6 +1994,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1714,6 +2026,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 130,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1741,6 +2058,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 81,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1768,6 +2090,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 143,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1795,6 +2122,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 126,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1822,6 +2154,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 112,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1849,6 +2186,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 15,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1876,6 +2218,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 136,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1903,6 +2250,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 121,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1930,6 +2282,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 142,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1957,6 +2314,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -1984,6 +2346,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 132,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2011,6 +2378,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 14,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2038,6 +2410,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2065,6 +2442,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 117,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2092,6 +2474,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 141,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2119,6 +2506,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2146,6 +2538,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 100,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2173,6 +2570,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2200,6 +2602,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2227,6 +2634,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 151,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2254,6 +2666,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 147,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2281,6 +2698,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2308,6 +2730,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 108,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2335,6 +2762,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 115,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2362,6 +2794,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2389,6 +2826,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 123,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2416,6 +2858,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 144,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2443,6 +2890,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 4,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2470,6 +2922,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 136,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2497,6 +2954,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2524,6 +2986,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2551,6 +3018,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 120,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2578,6 +3050,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2605,6 +3082,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 137,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2632,6 +3114,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2659,6 +3146,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 133,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2686,6 +3178,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2713,6 +3210,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2740,6 +3242,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2767,6 +3274,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 130,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2794,6 +3306,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 141,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2821,6 +3338,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 118,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2848,6 +3370,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 143,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2875,6 +3402,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 149,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2902,6 +3434,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2929,6 +3466,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 134,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2956,6 +3498,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -2983,6 +3530,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 119,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3010,6 +3562,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 117,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3037,6 +3594,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 84,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3064,6 +3626,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 112,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3091,6 +3658,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3118,6 +3690,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 181,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3145,6 +3722,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3172,6 +3754,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 124,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3199,6 +3786,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 114,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3226,6 +3818,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 122,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3253,6 +3850,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 132,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3280,6 +3882,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 129,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3307,6 +3914,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 109,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3334,6 +3946,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3361,6 +3978,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 94,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3388,6 +4010,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 151,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3415,6 +4042,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 134,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3442,6 +4074,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 156,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3469,6 +4106,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3496,6 +4138,43 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
+    "upcoming": false
+  },
+  {
+    "id": "spidey-amazing-friends-2021",
+    "universe": "Marvel",
+    "franchise": "Marvel Animation",
+    "collection": "",
+    "canon": "Other",
+    "type": "TV Series",
+    "title": "Marvel's Spidey and His Amazing Friends",
+    "release": "2021",
+    "status": "released",
+    "releaseOrder": 129,
+    "chronoOrder": 1,
+    "chronoApprox": false,
+    "era": "Disney+",
+    "platform": "5",
+    "seasons": null,
+    "runtimeMin": null,
+    "tier": "fringe",
+    "doomsday": "no",
+    "doomsdayOrder": null,
+    "doomsdayReason": "",
+    "notes": "",
+    "tmdbId": null,
+    "tmdbType": "",
+    "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3508,7 +4187,7 @@ export const MOVIES = [
     "title": "Shang-Chi and the Legend of the Ten Rings",
     "release": "2021",
     "status": "released",
-    "releaseOrder": 129,
+    "releaseOrder": 130,
     "chronoOrder": 45,
     "chronoApprox": false,
     "era": "Phase 4",
@@ -3523,6 +4202,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 132,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3535,7 +4219,7 @@ export const MOVIES = [
     "title": "Spider-Man: No Way Home",
     "release": "2021",
     "status": "released",
-    "releaseOrder": 130,
+    "releaseOrder": 131,
     "chronoOrder": 49,
     "chronoApprox": false,
     "era": "Phase 4",
@@ -3550,6 +4234,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 148,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3562,7 +4251,7 @@ export const MOVIES = [
     "title": "Superman & Lois",
     "release": "2021-2024",
     "status": "released",
-    "releaseOrder": 131,
+    "releaseOrder": 132,
     "chronoOrder": 7,
     "chronoApprox": false,
     "era": "Arrowverse",
@@ -3577,6 +4266,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3589,7 +4283,7 @@ export const MOVIES = [
     "title": "The Suicide Squad",
     "release": "2021",
     "status": "released",
-    "releaseOrder": 132,
+    "releaseOrder": 133,
     "chronoOrder": 10,
     "chronoApprox": false,
     "era": "DCEU",
@@ -3604,6 +4298,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 132,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3616,7 +4315,7 @@ export const MOVIES = [
     "title": "Venom: Let There Be Carnage",
     "release": "2021",
     "status": "released",
-    "releaseOrder": 133,
+    "releaseOrder": 134,
     "chronoOrder": 41,
     "chronoApprox": false,
     "era": "SSU",
@@ -3631,6 +4330,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 97,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3643,7 +4347,7 @@ export const MOVIES = [
     "title": "What If...?",
     "release": "2021-2024",
     "status": "released",
-    "releaseOrder": 134,
+    "releaseOrder": 135,
     "chronoOrder": 43,
     "chronoApprox": false,
     "era": "Phase 4-5",
@@ -3658,6 +4362,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3670,7 +4379,7 @@ export const MOVIES = [
     "title": "Zack Snyder's Justice League",
     "release": "2021",
     "status": "released",
-    "releaseOrder": 135,
+    "releaseOrder": 136,
     "chronoOrder": 11,
     "chronoApprox": false,
     "era": "DCEU",
@@ -3685,6 +4394,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 242,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3697,7 +4411,7 @@ export const MOVIES = [
     "title": "WandaVision",
     "release": "2021-01-15",
     "status": "released",
-    "releaseOrder": 136,
+    "releaseOrder": 137,
     "chronoOrder": 44,
     "chronoApprox": false,
     "era": "Phase 4",
@@ -3712,6 +4426,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3724,7 +4443,7 @@ export const MOVIES = [
     "title": "The Falcon and the Winter Soldier",
     "release": "2021-03-19",
     "status": "released",
-    "releaseOrder": 137,
+    "releaseOrder": 138,
     "chronoOrder": 46,
     "chronoApprox": false,
     "era": "Phase 4",
@@ -3739,6 +4458,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3751,7 +4475,7 @@ export const MOVIES = [
     "title": "Hawkeye",
     "release": "2021-11-24",
     "status": "released",
-    "releaseOrder": 138,
+    "releaseOrder": 139,
     "chronoOrder": 51,
     "chronoApprox": false,
     "era": "Phase 4",
@@ -3766,6 +4490,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3778,7 +4507,7 @@ export const MOVIES = [
     "title": "Peacemaker",
     "release": "2022-",
     "status": "released",
-    "releaseOrder": 139,
+    "releaseOrder": 140,
     "chronoOrder": 1,
     "chronoApprox": false,
     "era": "DCU",
@@ -3793,6 +4522,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3805,7 +4539,7 @@ export const MOVIES = [
     "title": "Black Adam",
     "release": "2022",
     "status": "released",
-    "releaseOrder": 140,
+    "releaseOrder": 141,
     "chronoOrder": 12,
     "chronoApprox": false,
     "era": "DCEU",
@@ -3820,6 +4554,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 125,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3832,7 +4571,7 @@ export const MOVIES = [
     "title": "Black Panther: Wakanda Forever",
     "release": "2022",
     "status": "released",
-    "releaseOrder": 141,
+    "releaseOrder": 142,
     "chronoOrder": 53,
     "chronoApprox": false,
     "era": "Phase 4",
@@ -3847,6 +4586,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 161,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3859,7 +4603,7 @@ export const MOVIES = [
     "title": "Doctor Strange in the Multiverse of Madness",
     "release": "2022",
     "status": "released",
-    "releaseOrder": 142,
+    "releaseOrder": 143,
     "chronoOrder": 50,
     "chronoApprox": false,
     "era": "Phase 4",
@@ -3874,6 +4618,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 126,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3886,7 +4635,7 @@ export const MOVIES = [
     "title": "I Am Groot",
     "release": "2022-2023",
     "status": "released",
-    "releaseOrder": 143,
+    "releaseOrder": 144,
     "chronoOrder": 19,
     "chronoApprox": false,
     "era": "Phase 4-5",
@@ -3901,6 +4650,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3913,7 +4667,7 @@ export const MOVIES = [
     "title": "Morbius",
     "release": "2022",
     "status": "released",
-    "releaseOrder": 144,
+    "releaseOrder": 145,
     "chronoOrder": 42,
     "chronoApprox": false,
     "era": "SSU",
@@ -3928,6 +4682,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 104,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3940,7 +4699,7 @@ export const MOVIES = [
     "title": "The Batman",
     "release": "2022",
     "status": "released",
-    "releaseOrder": 145,
+    "releaseOrder": 146,
     "chronoOrder": 4,
     "chronoApprox": false,
     "era": "Elseworlds",
@@ -3955,6 +4714,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 176,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3967,7 +4731,7 @@ export const MOVIES = [
     "title": "Thor: Love and Thunder",
     "release": "2022",
     "status": "released",
-    "releaseOrder": 146,
+    "releaseOrder": 147,
     "chronoOrder": 57,
     "chronoApprox": false,
     "era": "Phase 4",
@@ -3982,6 +4746,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 119,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -3994,7 +4763,7 @@ export const MOVIES = [
     "title": "Moon Knight",
     "release": "2022-03-30",
     "status": "released",
-    "releaseOrder": 147,
+    "releaseOrder": 148,
     "chronoOrder": 52,
     "chronoApprox": true,
     "era": "Phase 4",
@@ -4009,6 +4778,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4021,7 +4795,7 @@ export const MOVIES = [
     "title": "Ms. Marvel",
     "release": "2022-06-08",
     "status": "released",
-    "releaseOrder": 148,
+    "releaseOrder": 149,
     "chronoOrder": 56,
     "chronoApprox": false,
     "era": "Phase 4",
@@ -4036,6 +4810,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4048,7 +4827,7 @@ export const MOVIES = [
     "title": "She-Hulk: Attorney at Law",
     "release": "2022-08-18",
     "status": "released",
-    "releaseOrder": 149,
+    "releaseOrder": 150,
     "chronoOrder": 55,
     "chronoApprox": false,
     "era": "Phase 4",
@@ -4063,6 +4842,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4075,7 +4859,7 @@ export const MOVIES = [
     "title": "Werewolf by Night",
     "release": "2022-10-07",
     "status": "released",
-    "releaseOrder": 150,
+    "releaseOrder": 151,
     "chronoOrder": 58,
     "chronoApprox": false,
     "era": "Phase 4",
@@ -4090,6 +4874,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 53,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4102,7 +4891,7 @@ export const MOVIES = [
     "title": "The Guardians of the Galaxy Holiday Special",
     "release": "2022-11-25",
     "status": "released",
-    "releaseOrder": 151,
+    "releaseOrder": 152,
     "chronoOrder": 59,
     "chronoApprox": false,
     "era": "Phase 4",
@@ -4117,6 +4906,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 44,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4129,7 +4923,7 @@ export const MOVIES = [
     "title": "Ant-Man and the Wasp: Quantumania",
     "release": "2023",
     "status": "released",
-    "releaseOrder": 152,
+    "releaseOrder": 153,
     "chronoOrder": 60,
     "chronoApprox": false,
     "era": "Phase 5",
@@ -4144,6 +4938,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 124,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4156,7 +4955,7 @@ export const MOVIES = [
     "title": "Aquaman and the Lost Kingdom",
     "release": "2023",
     "status": "released",
-    "releaseOrder": 153,
+    "releaseOrder": 154,
     "chronoOrder": 13,
     "chronoApprox": false,
     "era": "DCEU",
@@ -4171,6 +4970,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 124,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4183,7 +4987,7 @@ export const MOVIES = [
     "title": "Blue Beetle",
     "release": "2023",
     "status": "released",
-    "releaseOrder": 154,
+    "releaseOrder": 155,
     "chronoOrder": 14,
     "chronoApprox": false,
     "era": "DCEU",
@@ -4198,6 +5002,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 127,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4210,7 +5019,7 @@ export const MOVIES = [
     "title": "Guardians of the Galaxy Vol. 3",
     "release": "2023",
     "status": "released",
-    "releaseOrder": 155,
+    "releaseOrder": 156,
     "chronoOrder": 61,
     "chronoApprox": false,
     "era": "Phase 5",
@@ -4225,6 +5034,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 150,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4237,7 +5051,7 @@ export const MOVIES = [
     "title": "Shazam! Fury of the Gods",
     "release": "2023",
     "status": "released",
-    "releaseOrder": 156,
+    "releaseOrder": 157,
     "chronoOrder": 15,
     "chronoApprox": false,
     "era": "DCEU",
@@ -4252,6 +5066,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 130,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4264,7 +5083,7 @@ export const MOVIES = [
     "title": "Spider-Man: Across the Spider-Verse",
     "release": "2023",
     "status": "released",
-    "releaseOrder": 157,
+    "releaseOrder": 158,
     "chronoOrder": 43,
     "chronoApprox": false,
     "era": "Sony Animation",
@@ -4279,6 +5098,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 140,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4291,7 +5115,7 @@ export const MOVIES = [
     "title": "The Flash",
     "release": "2023",
     "status": "released",
-    "releaseOrder": 158,
+    "releaseOrder": 159,
     "chronoOrder": 16,
     "chronoApprox": false,
     "era": "DCEU",
@@ -4306,6 +5130,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 144,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4318,7 +5147,7 @@ export const MOVIES = [
     "title": "The Marvels",
     "release": "2023",
     "status": "released",
-    "releaseOrder": 159,
+    "releaseOrder": 160,
     "chronoOrder": 63,
     "chronoApprox": false,
     "era": "Phase 5",
@@ -4333,6 +5162,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 105,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4345,7 +5179,7 @@ export const MOVIES = [
     "title": "Secret Invasion",
     "release": "2023-06-21",
     "status": "released",
-    "releaseOrder": 160,
+    "releaseOrder": 161,
     "chronoOrder": 62,
     "chronoApprox": false,
     "era": "Phase 5",
@@ -4360,6 +5194,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4372,7 +5211,7 @@ export const MOVIES = [
     "title": "Deadpool & Wolverine",
     "release": "2024",
     "status": "released",
-    "releaseOrder": 161,
+    "releaseOrder": 162,
     "chronoOrder": 64,
     "chronoApprox": false,
     "era": "Phase 5",
@@ -4387,6 +5226,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 128,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4399,7 +5243,7 @@ export const MOVIES = [
     "title": "Joker: Folie à Deux",
     "release": "2024",
     "status": "released",
-    "releaseOrder": 162,
+    "releaseOrder": 163,
     "chronoOrder": 5,
     "chronoApprox": false,
     "era": "Elseworlds",
@@ -4414,6 +5258,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 138,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4426,7 +5275,7 @@ export const MOVIES = [
     "title": "Madame Web",
     "release": "2024",
     "status": "released",
-    "releaseOrder": 163,
+    "releaseOrder": 164,
     "chronoOrder": 44,
     "chronoApprox": false,
     "era": "SSU",
@@ -4441,6 +5290,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 116,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4453,7 +5307,7 @@ export const MOVIES = [
     "title": "The Penguin",
     "release": "2024",
     "status": "released",
-    "releaseOrder": 164,
+    "releaseOrder": 165,
     "chronoOrder": 6,
     "chronoApprox": false,
     "era": "Elseworlds",
@@ -4468,6 +5322,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4480,7 +5339,7 @@ export const MOVIES = [
     "title": "Venom: The Last Dance",
     "release": "2024",
     "status": "released",
-    "releaseOrder": 165,
+    "releaseOrder": 166,
     "chronoOrder": 45,
     "chronoApprox": false,
     "era": "SSU",
@@ -4495,6 +5354,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 109,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4507,7 +5371,7 @@ export const MOVIES = [
     "title": "Echo",
     "release": "2024-01-09",
     "status": "released",
-    "releaseOrder": 166,
+    "releaseOrder": 167,
     "chronoOrder": 54,
     "chronoApprox": false,
     "era": "Phase 5",
@@ -4522,6 +5386,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4534,7 +5403,7 @@ export const MOVIES = [
     "title": "X-Men '97",
     "release": "2024-03-20",
     "status": "released",
-    "releaseOrder": 167,
+    "releaseOrder": 168,
     "chronoOrder": 46,
     "chronoApprox": false,
     "era": "Marvel Animation",
@@ -4549,6 +5418,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4561,7 +5435,7 @@ export const MOVIES = [
     "title": "Agatha All Along",
     "release": "2024-09-18",
     "status": "released",
-    "releaseOrder": 168,
+    "releaseOrder": 169,
     "chronoOrder": 65,
     "chronoApprox": false,
     "era": "Phase 5",
@@ -4576,6 +5450,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4588,7 +5467,7 @@ export const MOVIES = [
     "title": "Creature Commandos",
     "release": "2024-12-05",
     "status": "released",
-    "releaseOrder": 169,
+    "releaseOrder": 170,
     "chronoOrder": 2,
     "chronoApprox": false,
     "era": "DCU",
@@ -4603,6 +5482,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4615,7 +5499,7 @@ export const MOVIES = [
     "title": "Kraven the Hunter",
     "release": "2024-12-13",
     "status": "released",
-    "releaseOrder": 170,
+    "releaseOrder": 171,
     "chronoOrder": 47,
     "chronoApprox": false,
     "era": "SSU",
@@ -4630,6 +5514,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 127,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4642,7 +5531,7 @@ export const MOVIES = [
     "title": "Your Friendly Neighborhood Spider-Man",
     "release": "2025-01-29",
     "status": "released",
-    "releaseOrder": 171,
+    "releaseOrder": 172,
     "chronoOrder": 48,
     "chronoApprox": false,
     "era": "Marvel Animation",
@@ -4657,6 +5546,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": true,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4669,7 +5563,7 @@ export const MOVIES = [
     "title": "Captain America: Brave New World",
     "release": "2025-02-14",
     "status": "released",
-    "releaseOrder": 172,
+    "releaseOrder": 173,
     "chronoOrder": 67,
     "chronoApprox": false,
     "era": "Phase 5",
@@ -4684,6 +5578,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 118,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4696,7 +5595,7 @@ export const MOVIES = [
     "title": "Daredevil: Born Again",
     "release": "2025-03-04",
     "status": "released",
-    "releaseOrder": 173,
+    "releaseOrder": 174,
     "chronoOrder": 66,
     "chronoApprox": false,
     "era": "Phase 5",
@@ -4711,6 +5610,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4723,13 +5627,13 @@ export const MOVIES = [
     "title": "Thunderbolts*",
     "release": "2025-05-02",
     "status": "released",
-    "releaseOrder": 174,
+    "releaseOrder": 175,
     "chronoOrder": 68,
     "chronoApprox": false,
     "era": "Phase 6",
     "platform": "Theaters",
     "seasons": null,
-    "runtimeMin": 126,
+    "runtimeMin": 127,
     "tier": "core",
     "doomsday": "official",
     "doomsdayOrder": 14,
@@ -4738,6 +5642,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 127,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4750,7 +5659,7 @@ export const MOVIES = [
     "title": "Ironheart",
     "release": "2025-06-24",
     "status": "released",
-    "releaseOrder": 175,
+    "releaseOrder": 176,
     "chronoOrder": 69,
     "chronoApprox": false,
     "era": "Phase 5",
@@ -4765,6 +5674,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4777,7 +5691,7 @@ export const MOVIES = [
     "title": "Superman",
     "release": "2025-07-11",
     "status": "released",
-    "releaseOrder": 176,
+    "releaseOrder": 177,
     "chronoOrder": 3,
     "chronoApprox": false,
     "era": "DCU",
@@ -4792,6 +5706,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 130,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4804,13 +5723,13 @@ export const MOVIES = [
     "title": "The Fantastic Four: First Steps",
     "release": "2025-07-25",
     "status": "released",
-    "releaseOrder": 177,
+    "releaseOrder": 178,
     "chronoOrder": 70,
     "chronoApprox": false,
     "era": "Phase 6",
     "platform": "Theaters",
     "seasons": null,
-    "runtimeMin": 125,
+    "runtimeMin": 115,
     "tier": "core",
     "doomsday": "official",
     "doomsdayOrder": 15,
@@ -4819,6 +5738,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 115,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4831,7 +5755,7 @@ export const MOVIES = [
     "title": "Eyes of Wakanda",
     "release": "2025-08-06",
     "status": "released",
-    "releaseOrder": 178,
+    "releaseOrder": 179,
     "chronoOrder": 72,
     "chronoApprox": false,
     "era": "Phase 5",
@@ -4846,6 +5770,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": true,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4858,7 +5787,7 @@ export const MOVIES = [
     "title": "Marvel Zombies",
     "release": "2025-10-03",
     "status": "released",
-    "releaseOrder": 179,
+    "releaseOrder": 180,
     "chronoOrder": 73,
     "chronoApprox": false,
     "era": "Phase 5",
@@ -4873,6 +5802,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": true,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
   },
   {
@@ -4885,7 +5819,7 @@ export const MOVIES = [
     "title": "Wonder Man",
     "release": "2025-12",
     "status": "released",
-    "releaseOrder": 180,
+    "releaseOrder": 181,
     "chronoOrder": 71,
     "chronoApprox": true,
     "era": "Phase 6",
@@ -4900,34 +5834,12 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": true,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": false
-  },
-  {
-    "id": "vision-quest-2026",
-    "universe": "Marvel",
-    "franchise": "MCU",
-    "collection": "The Multiverse Saga",
-    "canon": "MCU canon",
-    "type": "TV Series",
-    "title": "Vision Quest",
-    "release": "2026",
-    "status": "tbd",
-    "releaseOrder": 181,
-    "chronoOrder": 76,
-    "chronoApprox": true,
-    "era": "Phase 6",
-    "platform": "Disney+",
-    "seasons": 1,
-    "runtimeMin": null,
-    "tier": "core",
-    "doomsday": "no",
-    "doomsdayOrder": null,
-    "doomsdayReason": "",
-    "notes": "Paul Bettany returns as White Vision; James Spader returns as Ultron.",
-    "tmdbId": null,
-    "tmdbType": "tv",
-    "needsReview": true,
-    "upcoming": true
   },
   {
     "id": "supergirl-2026",
@@ -4954,7 +5866,12 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
-    "upcoming": true
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 120,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
+    "upcoming": false
   },
   {
     "id": "spider-man-brand-new-day-2026",
@@ -4981,7 +5898,108 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": true,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 130,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": false
+  },
+  {
+    "id": "lanterns-tbd",
+    "universe": "DC",
+    "franchise": "DCU (Chapter One)",
+    "collection": "DCU: Chapter One",
+    "canon": "DCU",
+    "type": "TV Series",
+    "title": "Lanterns",
+    "release": "2026-08-16",
+    "status": "released",
+    "releaseOrder": 184,
+    "chronoOrder": 5,
+    "chronoApprox": true,
+    "era": "DCU",
+    "platform": "Max",
+    "seasons": 1,
+    "runtimeMin": null,
+    "tier": "core",
+    "doomsday": "na",
+    "doomsdayOrder": null,
+    "doomsdayReason": "",
+    "notes": "Hal Jordan and John Stewart True Detective-style mystery in DCU.",
+    "tmdbId": null,
+    "tmdbType": "tv",
+    "needsReview": true,
+    "episodes": 8,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
+    "upcoming": false
+  },
+  {
+    "id": "spidey-avengers-halloween-2026",
+    "universe": "Marvel",
+    "franchise": "Marvel Animation",
+    "collection": "",
+    "canon": "Other",
+    "type": "Special",
+    "title": "Marvel's Spidey and the Avengers: Halloween Team-Up!",
+    "release": "2026-09-25",
+    "status": "released",
+    "releaseOrder": 185,
+    "chronoOrder": 2,
+    "chronoApprox": false,
+    "era": "Disney+",
+    "platform": "",
+    "seasons": null,
+    "runtimeMin": null,
+    "tier": "fringe",
+    "doomsday": "no",
+    "doomsdayOrder": null,
+    "doomsdayReason": "",
+    "notes": "",
+    "tmdbId": null,
+    "tmdbType": "",
+    "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
+    "upcoming": false
+  },
+  {
+    "id": "vision-quest-2026",
+    "universe": "Marvel",
+    "franchise": "MCU",
+    "collection": "The Multiverse Saga",
+    "canon": "MCU canon",
+    "type": "TV Series",
+    "title": "Vision Quest",
+    "release": "2026-10-14",
+    "status": "upcoming",
+    "releaseOrder": 186,
+    "chronoOrder": 76,
+    "chronoApprox": true,
+    "era": "Phase 6",
+    "platform": "Disney+",
+    "seasons": 1,
+    "runtimeMin": null,
+    "tier": "core",
+    "doomsday": "optional",
+    "doomsdayOrder": null,
+    "doomsdayReason": "Closes out the Wanda/Vision storyline; releases before Doomsday",
+    "notes": "Paul Bettany returns as White Vision; James Spader returns as Ultron.",
+    "tmdbId": null,
+    "tmdbType": "tv",
+    "needsReview": true,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
+    "upcoming": true
   },
   {
     "id": "clayface-2026",
@@ -4991,10 +6009,10 @@ export const MOVIES = [
     "canon": "DCU",
     "type": "Movie",
     "title": "Clayface",
-    "release": "2026-09-11",
-    "status": "released",
-    "releaseOrder": 184,
-    "chronoOrder": 5,
+    "release": "2026-10-23",
+    "status": "upcoming",
+    "releaseOrder": 187,
+    "chronoOrder": 6,
     "chronoApprox": false,
     "era": "DCU",
     "platform": "Theaters",
@@ -5008,6 +6026,43 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": true,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 115,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
+    "upcoming": true
+  },
+  {
+    "id": "iron-man-awesome-friends-2026",
+    "universe": "Marvel",
+    "franchise": "Marvel Animation",
+    "collection": "",
+    "canon": "Other",
+    "type": "TV Series",
+    "title": "Marvel's Iron Man and his Awesome Friends",
+    "release": "2026-10-28",
+    "status": "upcoming",
+    "releaseOrder": 188,
+    "chronoOrder": 3,
+    "chronoApprox": false,
+    "era": "Disney+/Disney Jr.",
+    "platform": "",
+    "seasons": null,
+    "runtimeMin": null,
+    "tier": "",
+    "doomsday": "fringe",
+    "doomsdayOrder": null,
+    "doomsdayReason": "",
+    "notes": "",
+    "tmdbId": null,
+    "tmdbType": "",
+    "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": true
   },
   {
@@ -5020,7 +6075,7 @@ export const MOVIES = [
     "title": "Avengers: Doomsday",
     "release": "2026-12-18",
     "status": "upcoming",
-    "releaseOrder": 185,
+    "releaseOrder": 189,
     "chronoOrder": 80,
     "chronoApprox": false,
     "era": "Phase 6",
@@ -5035,6 +6090,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 160,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": true
   },
   {
@@ -5047,8 +6107,8 @@ export const MOVIES = [
     "title": "Man of Tomorrow",
     "release": "2027-07-09",
     "status": "upcoming",
-    "releaseOrder": 186,
-    "chronoOrder": 6,
+    "releaseOrder": 190,
+    "chronoOrder": 7,
     "chronoApprox": false,
     "era": "DCU",
     "platform": "Theaters",
@@ -5062,6 +6122,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": true,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 125,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": true
   },
   {
@@ -5074,7 +6139,7 @@ export const MOVIES = [
     "title": "The Batman Part II",
     "release": "2027-10-01",
     "status": "upcoming",
-    "releaseOrder": 187,
+    "releaseOrder": 191,
     "chronoOrder": 7,
     "chronoApprox": false,
     "era": "Elseworlds",
@@ -5089,6 +6154,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 165,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": true
   },
   {
@@ -5099,9 +6169,9 @@ export const MOVIES = [
     "canon": "MCU canon",
     "type": "Movie",
     "title": "Avengers: Secret Wars",
-    "release": "2027-12",
+    "release": "2027-12-17",
     "status": "upcoming",
-    "releaseOrder": 188,
+    "releaseOrder": 192,
     "chronoOrder": 81,
     "chronoApprox": false,
     "era": "Phase 6",
@@ -5116,6 +6186,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": false,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": 175,
+    "runtimeSource": "seed",
+    "runtimeApprox": false,
     "upcoming": true
   },
   {
@@ -5128,7 +6203,7 @@ export const MOVIES = [
     "title": "Armor Wars",
     "release": "TBD",
     "status": "tbd",
-    "releaseOrder": 189,
+    "releaseOrder": 193,
     "chronoOrder": 78,
     "chronoApprox": true,
     "era": "Phase 6",
@@ -5143,6 +6218,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": true,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": true
   },
   {
@@ -5155,7 +6235,7 @@ export const MOVIES = [
     "title": "Blade",
     "release": "TBD",
     "status": "tbd",
-    "releaseOrder": 190,
+    "releaseOrder": 194,
     "chronoOrder": 77,
     "chronoApprox": true,
     "era": "Phase 6",
@@ -5170,6 +6250,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": true,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": true
   },
   {
@@ -5182,8 +6267,8 @@ export const MOVIES = [
     "title": "Booster Gold",
     "release": "TBD",
     "status": "upcoming",
-    "releaseOrder": 191,
-    "chronoOrder": 7,
+    "releaseOrder": 195,
+    "chronoOrder": 8,
     "chronoApprox": true,
     "era": "DCU",
     "platform": "Max",
@@ -5197,33 +6282,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": true,
-    "upcoming": true
-  },
-  {
-    "id": "lanterns-tbd",
-    "universe": "DC",
-    "franchise": "DCU (Chapter One)",
-    "collection": "DCU: Chapter One",
-    "canon": "DCU",
-    "type": "TV Series",
-    "title": "Lanterns",
-    "release": "TBD",
-    "status": "upcoming",
-    "releaseOrder": 192,
-    "chronoOrder": 8,
-    "chronoApprox": true,
-    "era": "DCU",
-    "platform": "Max",
-    "seasons": 1,
-    "runtimeMin": null,
-    "tier": "core",
-    "doomsday": "na",
-    "doomsdayOrder": null,
-    "doomsdayReason": "",
-    "notes": "Hal Jordan and John Stewart True Detective-style mystery in DCU.",
-    "tmdbId": null,
-    "tmdbType": "tv",
-    "needsReview": true,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": true
   },
   {
@@ -5236,7 +6299,7 @@ export const MOVIES = [
     "title": "Sgt. Rock",
     "release": "TBD",
     "status": "tbd",
-    "releaseOrder": 193,
+    "releaseOrder": 196,
     "chronoOrder": 9,
     "chronoApprox": true,
     "era": "DCU",
@@ -5251,6 +6314,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": true,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": true
   },
   {
@@ -5263,7 +6331,7 @@ export const MOVIES = [
     "title": "Shang-Chi 2",
     "release": "TBD",
     "status": "tbd",
-    "releaseOrder": 194,
+    "releaseOrder": 197,
     "chronoOrder": 79,
     "chronoApprox": true,
     "era": "Phase 6",
@@ -5278,6 +6346,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": true,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": true
   },
   {
@@ -5290,7 +6363,7 @@ export const MOVIES = [
     "title": "Spider-Man: Beyond the Spider-Verse",
     "release": "TBD",
     "status": "tbd",
-    "releaseOrder": 195,
+    "releaseOrder": 198,
     "chronoOrder": 49,
     "chronoApprox": true,
     "era": "Sony Animation",
@@ -5305,6 +6378,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": true,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": true
   },
   {
@@ -5317,7 +6395,7 @@ export const MOVIES = [
     "title": "Swamp Thing (DCU)",
     "release": "TBD",
     "status": "tbd",
-    "releaseOrder": 196,
+    "releaseOrder": 199,
     "chronoOrder": 10,
     "chronoApprox": true,
     "era": "DCU",
@@ -5332,6 +6410,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": true,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": true
   },
   {
@@ -5344,7 +6427,7 @@ export const MOVIES = [
     "title": "The Authority",
     "release": "TBD",
     "status": "tbd",
-    "releaseOrder": 197,
+    "releaseOrder": 200,
     "chronoOrder": 11,
     "chronoApprox": true,
     "era": "DCU",
@@ -5359,6 +6442,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": true,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": true
   },
   {
@@ -5371,7 +6459,7 @@ export const MOVIES = [
     "title": "The Brave and the Bold",
     "release": "TBD",
     "status": "tbd",
-    "releaseOrder": 198,
+    "releaseOrder": 201,
     "chronoOrder": 12,
     "chronoApprox": true,
     "era": "DCU",
@@ -5386,6 +6474,11 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "movie",
     "needsReview": true,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": true
   },
   {
@@ -5398,7 +6491,7 @@ export const MOVIES = [
     "title": "Waller",
     "release": "TBD",
     "status": "upcoming",
-    "releaseOrder": 199,
+    "releaseOrder": 202,
     "chronoOrder": 13,
     "chronoApprox": true,
     "era": "DCU",
@@ -5413,8 +6506,25 @@ export const MOVIES = [
     "tmdbId": null,
     "tmdbType": "tv",
     "needsReview": true,
+    "episodes": null,
+    "episodeRuntimeMin": null,
+    "totalRuntimeMin": null,
+    "runtimeSource": "",
+    "runtimeApprox": false,
     "upcoming": true
   }
 ];
+
+export const MOVIES = _MOVIES.map(m => {
+  const rt = RUNTIMES[m.id];
+  if (rt) {
+    if (rt.runtimeMin !== undefined && rt.runtimeMin !== null) m.runtimeMin = rt.runtimeMin;
+    if (rt.episodes !== undefined && rt.episodes !== null) m.episodes = rt.episodes;
+    if (rt.totalMin !== undefined && rt.totalMin !== null) m.totalRuntimeMin = rt.totalMin;
+    if (rt.seasons) m.seasonsData = rt.seasons;
+    m.runtimeSource = rt.source || 'tmdb';
+  }
+  return m;
+});
 
 export default MOVIES;
