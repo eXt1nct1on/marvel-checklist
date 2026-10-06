@@ -9,6 +9,7 @@ import { renderProgressPage } from './ui/progress-page.js';
 import { renderPlanPage } from './ui/plan-page.js';
 import { renderProfilesPage } from './ui/profiles-page.js';
 import { renderAboutPage } from './ui/about-page.js';
+import { initBgVideoFacade, updateBgVideoSettings } from './bg-video.js';
 
 const ROUTES = {
   '#/home': { title: 'Home - Multiverse Checklist', render: renderHomePage },
@@ -107,6 +108,7 @@ function checkFirstVisit() {
 }
 
 export function initApp() {
+  initBgVideoFacade();
   window.addEventListener('hashchange', handleRoute);
 
   window.addEventListener('app:rerender', () => {
@@ -119,6 +121,9 @@ export function initApp() {
 
   store.subscribe((action) => {
     if (action === 'storage_sync' || action === 'profile_switch' || action === 'data_reset' || action === 'data_import' || action === 'prefs_changed') {
+      if (action === 'prefs_changed') {
+        updateBgVideoSettings();
+      }
       // Complete nuke
       Object.values(routeContainers).forEach(el => el.remove());
       for (const k in routeContainers) delete routeContainers[k];

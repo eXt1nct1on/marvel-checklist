@@ -56,6 +56,9 @@ export function renderAboutPage(container) {
             of Marvel Studios / The Walt Disney Company. DC, Batman, Superman, Justice League, and related characters are
             trademarks and copyrights of DC Comics / Warner Bros. Discovery. All rights belong to their respective owners.
           </p>
+          <p style="font-size: 14px; color: var(--muted); margin-top: 8px;">
+            Background video is embedded from YouTube; it is not hosted on this site.
+          </p>
         </div>
       </section>
     </div>

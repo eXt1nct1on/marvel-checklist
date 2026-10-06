@@ -72,6 +72,23 @@ export function renderProfilesPage(container) {
             </div>
             <label><input type="checkbox" id="toggle-doomsday-optional-pref" ${store.getDoomsdayIncludeOptional() ? 'checked' : ''}> Include</label>
           </div>
+          
+          <div style="border:2px solid var(--border); padding:16px; background:var(--surface);">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: 16px;">
+              <div>
+                <strong style="display:block;">Background Video</strong>
+                <span style="font-size:12px; color:var(--muted);">Looping YouTube embed</span>
+              </div>
+              <label><input type="checkbox" id="toggle-bg-video" ${(activeProfile.prefs.bgVideo !== false && (activeProfile.prefs.bgVideo === true || window.innerWidth >= 720)) ? 'checked' : ''}> Enable</label>
+            </div>
+            <div>
+              <div style="display:flex; justify-content:space-between; margin-bottom: 4px;">
+                <label for="range-bg-video-opacity" style="font-size: 14px; font-weight: bold;">Video Opacity</label>
+                <span id="label-bg-video-opacity" style="font-size: 14px;">${activeProfile.prefs.bgVideoOpacity !== undefined ? activeProfile.prefs.bgVideoOpacity : (document.documentElement.getAttribute('data-theme') === 'light' ? 0.10 : 0.20)}</span>
+              </div>
+              <input type="range" id="range-bg-video-opacity" min="0.05" max="0.40" step="0.05" value="${activeProfile.prefs.bgVideoOpacity !== undefined ? activeProfile.prefs.bgVideoOpacity : (document.documentElement.getAttribute('data-theme') === 'light' ? 0.10 : 0.20)}" style="width: 100%;">
+            </div>
+          </div>
         </div>
       </section>
 
@@ -178,6 +195,27 @@ export function renderProfilesPage(container) {
       store.setDoomsdayIncludeOptional(e.target.checked);
       announceLiveMessage(`Optional picks ${e.target.checked ? 'included' : 'excluded'}`);
       renderProfilesPage(container);
+    });
+  }
+
+  const bgVideoToggle = container.querySelector('#toggle-bg-video');
+  if (bgVideoToggle) {
+    bgVideoToggle.addEventListener('change', (e) => {
+      store.updatePrefs({ bgVideo: e.target.checked });
+      announceLiveMessage(`Background video ${e.target.checked ? 'enabled' : 'disabled'}`);
+      // Re-render handled by store subscribe -> prefs_changed in app.js if we wanted,
+      // but re-rendering just this page is fine:
+      renderProfilesPage(container);
+    });
+  }
+
+  const bgVideoOpacityRange = container.querySelector('#range-bg-video-opacity');
+  const bgVideoOpacityLabel = container.querySelector('#label-bg-video-opacity');
+  if (bgVideoOpacityRange) {
+    bgVideoOpacityRange.addEventListener('input', (e) => {
+      const val = parseFloat(e.target.value);
+      if (bgVideoOpacityLabel) bgVideoOpacityLabel.textContent = val.toFixed(2);
+      store.updatePrefs({ bgVideoOpacity: val });
     });
   }
 

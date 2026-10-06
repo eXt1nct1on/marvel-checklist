@@ -9,6 +9,7 @@
    ───────────────────────────────────────────── */
 :root {
   --bg:        #F5F2EA;   /* warm off-white paper */
+  --bg-video-opacity: 0.10;
   --surface:   #FFFFFF;
   --surface-2: #ECE8DD;
   --border:    #151515;
@@ -24,6 +25,7 @@
 }
 :root[data-theme="dark"] {
   --bg:        #0E0E0E;
+  --bg-video-opacity: 0.20;
   --surface:   #171717;
   --surface-2: #222222;
   --border:    #343434;
@@ -1156,4 +1158,33 @@ h1, h2, h3, h4, h5, h6, .display-font {
 .tmdb-logo {
   height: 32px;
   flex-shrink: 0;
+}
+
+/* ─────────────────────────────────────────────
+   BACKGROUND VIDEO
+   ───────────────────────────────────────────── */
+#bg-video-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background-size: cover;
+  background-position: center;
+  opacity: var(--bg-video-opacity);
+}
+
+#bg-video-layer iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: max(100vw, 177.78vh);
+  height: max(56.25vw, 100vh);
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+#bg-video-layer iframe.playing {
+  opacity: 1;
 }

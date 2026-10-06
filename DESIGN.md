@@ -59,3 +59,10 @@ The system is fully responsive to Light and Dark modes via `data-theme="light|da
 * **Posters**: When an image is unavailable or loading, the system uses a flat colored placeholder with a text monogram, eliminating expensive procedural SVG rendering.
 * **Watched Checkbox**: Rendered as a solid square box that fills with the text color and displays an inverted checkmark.
 * **Buttons**: Bordered, flat, sharp corners. Hover applies a solid offset shadow (e.g. `box-shadow: 4px 4px 0 var(--border)`).
+
+## Background Video Facade
+
+The optional YouTube background video adheres to the flat design rules:
+1. **Zero Gradients**: The background is a solid embedded iframe behind the content.
+2. **Opacity Dimming**: To ensure text readability on solid `--surface` containers, the background layer relies solely on a flat CSS `opacity: var(--bg-video-opacity)` (default 0.20 in dark mode, 0.10 in light mode). No gradient overlays or blurs are used.
+3. **Data/Battery Saver**: The background video respects `prefers-reduced-motion`, `saveData`, and slow network connections, falling back to a static facade image.

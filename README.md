@@ -216,3 +216,8 @@ Multiverse Tracker is an unofficial, non-commercial fan project.
 Marvel, Marvel Cinematic Universe, The Avengers, and related characters are trademarks and copyrights of Marvel Studios / The Walt Disney Company. DC, Batman, Superman, Justice League, and related characters are trademarks and copyrights of DC Comics / Warner Bros. Discovery. All rights belong to their respective owners.
 
 This product uses the TMDB API but is not endorsed or certified by TMDB. Movie and television series artwork, high-resolution posters, and initial air dates are retrieved via the TMDB API.
+
+### Background Video Configuration
+The site features an optional looping YouTube background video facade designed to have zero layout shift and respect user preferences (like `prefers-reduced-motion` or data-saver).
+- **Configuration**: Edit `js/bg-config.js` to change `VIDEO_ID`, `START`, and `END` times (in seconds).
+- **User Controls**: Users can toggle the video or adjust opacity in their Profiles page.

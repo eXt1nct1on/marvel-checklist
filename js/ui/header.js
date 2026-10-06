@@ -22,6 +22,8 @@ export function renderHeader(headerEl, currentRoute = '#/home') {
     { hash: '#/about',    label: 'About' },
   ];
 
+        const isBgVideoOn = prefs.bgVideo !== undefined ? prefs.bgVideo : (window.innerWidth >= 720);
+  
   const html = `
     ${!store.isStorageAvailable || store.hasStorageWarning ? `
       <div style="background:var(--red);color:var(--on-red);padding:6px 16px;text-align:center;font-weight:bold;font-size:13px;">
@@ -47,7 +49,12 @@ export function renderHeader(headerEl, currentRoute = '#/home') {
             </option>
           `).join('')}
         </select>
-
+        <button type="button" class="btn btn-sm" id="btn-video-toggle" aria-label="${isBgVideoOn ? 'Disable background video' : 'Enable background video'}" title="Background Video">
+          ${isBgVideoOn
+            ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>`
+            : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect><line x1="2" y1="2" x2="22" y2="22"></line></svg>`
+          }
+        </button>
         <button type="button" class="btn btn-sm" id="btn-theme-toggle" aria-label="${isDark ? 'Switch to light theme' : 'Switch to dark theme'}">
           ${isDark
             ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`
@@ -88,6 +95,16 @@ export function renderHeader(headerEl, currentRoute = '#/home') {
       document.documentElement.setAttribute('data-theme', newTheme);
       store.updatePrefs({ theme: newTheme });
       announceLiveMessage(`Switched to ${newTheme} theme`);
+      renderHeader(headerEl, currentRoute);
+    });
+  }
+
+  const videoBtn = headerEl.querySelector('#btn-video-toggle');
+  if (videoBtn) {
+    videoBtn.addEventListener('click', () => {
+      const isCurrentlyOn = prefs.bgVideo !== undefined ? prefs.bgVideo : (window.innerWidth >= 720);
+      store.updatePrefs({ bgVideo: !isCurrentlyOn });
+      announceLiveMessage(`Background video ${!isCurrentlyOn ? 'enabled' : 'disabled'}`);
       renderHeader(headerEl, currentRoute);
     });
   }
